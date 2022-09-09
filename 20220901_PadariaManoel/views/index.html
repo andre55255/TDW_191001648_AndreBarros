@@ -1,52 +1,105 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/public/css/index.css">
-    <link rel="shortcut icon" href="/public/assets/faviconPng.png" type="image/x-icon">
-    <title>Padaria do Manoel</title>
-</head>
-<body class="container">
-    <header class="header">
-        <div id="logo">
-            <img src="/public/assets/logoProfileWithoutName.png" alt="logo" />
-        </div>
-        <div id="menus">
-            <nav id="menus-list">
-                <ul>
-                    <li>
-                        <a href="/">
-                            Home
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            Produtos
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            Contato
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            Sobre
-                        </a>
-                    </li>
-                </ul>
+    <head>
+        <!-- Chaset e viewsports -->
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- Title e meta tags de descrição -->
+        <title>Naquele NaiPão</title>
+        <meta
+            name="description"
+            content="Padaria naquele naipão, melhores pães franceses do Brasil"
+        />
+        <meta name="author" content="André Luiz Barros" />
+        <!-- Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Roboto:wght@400;500&display=swap"
+            rel="stylesheet"
+        />
+        <!-- Box Icons -->
+        <link
+            href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css"
+            rel="stylesheet"
+        />
+        <!-- CSS -->
+        <link rel="preload" href="/public/css/index.css" as="style" />
+        <link rel="stylesheet" href="/public/css/index.css" />
+        <!-- Favicon -->
+        <link
+            rel="shortcut icon"
+            href="/public/assets/favicon.png"
+            type="image/x-icon"
+        />
+    </head>
+    <body class="container">
+        <header class="header" id="header">
+            <nav class="nav container">
+                <div class="nav-box">
+                    <a href="/" class="nav-logo">
+                        <img
+                            src="/public/assets/logoHorizontalFundoBrancoAdjusted.png"
+                            alt="Logo"
+                        />
+                    </a>
+                </div>
+                <div class="nav-menu" id="nav-menu">
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                            <a href="/" class="nav-link">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">Sobre</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">Parceiros</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">Contato</a>
+                        </li>
+                    </ul>
+                    <div class="nav-close" id="nav-close">
+                        <i class="bx bx-x"></i>
+                    </div>
+                </div>
+                <div class="nav-btns">
+                    <div class="nav-toggle" id="nav-toggle">
+                        <i class="bx bx-menu"></i>
+                    </div>
+                </div>
             </nav>
-        </div>
-    </header>
-    <main class="main">
-
-    </main>
-    <footer class="footer">
-        <small>
-            &copy; Desenvolvido por André Luiz Barros
-        </small>
-    </footer>
-</body>
+        </header>
+        <main class="main">
+            <section class="home" id="home">
+                <div class="home-container main-container main-grid">
+                    <div class="home-data">
+                        <h1 class="home-title">
+                            Naquele<br />
+                            <span class="home-title-secondary"> Naipão </span>
+                        </h1>
+                        <p class="home-subtitle">
+                            Melhores pãezinhos do Brasil
+                        </p>
+                        <div class="home-btns">
+                            <a href="#" class="button">Sobre nós</a>
+                            <a href="#" class="button-secondary"
+                                >Nossos parceiros
+                                <i class="bx bx-right-arrow-alt button_icon"></i
+                            ></a>
+                        </div>
+                        <div class="home-company"></div>
+                    </div>
+                    <img
+                        src="/public/assets/home.jpg"
+                        alt="Cesta de pães"
+                        class="home-img"
+                    />
+                </div>
+            </section>
+        </main>
+        <footer class="footer"></footer>
+    </body>
+    <script src="/public/js/navbar.js"></script>
 </html>

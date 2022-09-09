@@ -1,85 +1,11 @@
-:root {
-    --color-primary: #1117a3;
-    --color-primary-soft: #1116a3EE;
-    --color-secondary: #1d1f21;
-    --color-alternative: #e0f0f0;
-    --color-white: ##ffffff;
-}
+/* Utils */
+@import "./utlities/global.css";
+@import "./utlities/typhografy.css";
+@import "./utlities/colors.css";
+@import "./utlities/container.css";
 
-* {
-    padding: 0;
-    margin: 0;
-    list-style: none;
-    text-decoration: none;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+/* Header */
+@import "./header/header.css";
 
-.container {
-    display: grid;
-    grid-template-columns: 20vw 80vw;
-    grid-template-rows: 15vh minmax(50vh, auto) 40px;
-    grid-template-areas: 
-    "header header"
-    "main main"
-    "footer footer";
-    height: 100vh;
-}
-
-.header {
-    background-color: var(--color-primary);
-    grid-area: header;
-    height: 100%;
-    width: 100%;
-
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-}
-
-.main {
-    grid-area: main;
-}
-
-.footer {
-    grid-area: footer;
-    background-color: var(--color-alternative);
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 500;
-}
-
-#logo img {
-    margin-left: 3rem;
-    width: 5rem;
-}
-
-#menus {
-    margin-left: 8rem;
-}
-
-#menus-list ul {
-    display: flex;
-}
-
-#menus-list ul li {
-    margin: 0 .7rem;
-}
-
-#menus-list ul li a {
-    color:  var(--color-alternative);
-    text-transform: uppercase;
-    font-weight: 600;
-    transition: all .2s;
-}
-
-#menus-list ul li a:hover {
-    padding-bottom: .1rem;
-    border-bottom: 3px solid var(--color-alternative);
-}
-
-.footer small {
-    font-size: 0.9rem;
-}
+/* Home */
+@import "./home/home.css";
