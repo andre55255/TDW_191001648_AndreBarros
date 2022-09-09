@@ -132,7 +132,10 @@
                     </div>
                 </div>
             </section>
-            <section id="partners" class="partners-container main-container main-grid">
+            <section
+                id="partners"
+                class="partners-container main-container main-grid"
+            >
                 <div class="partners-data">
                     <h1 class="partners-title">
                         Nossos
@@ -201,7 +204,8 @@
                     </a>
 
                     <p class="footer-description">
-                        Uma empresa para trazer o seu pão de cada dia, feito com muito amor e carinho
+                        Uma empresa para trazer o seu pão de cada dia, feito com
+                        muito amor e carinho
                     </p>
 
                     <div class="footer-social">
@@ -222,6 +226,10 @@
                             Conselheiro Lafaiete - MG
                         </p>
                     </small>
+                    <a href="#openModalSendMessage" class="button">
+                        Enviar mensagem
+                        <i class="bx bx-right-arrow-alt about_icon"></i>
+                    </a>
                 </div>
             </div>
             <hr class="hr-footer-secondary" />
@@ -229,6 +237,29 @@
                 >&copy; Copyright 2022 Naquele NaiPão</span
             >
         </footer>
+        <div id="openModalSendMessage" class="modal">
+            <div id="container-modal">
+                <a href="#close" title="Fechar" class="close">X</a>
+                <p class="footer-title">Enviar Mensagem</p>
+                <form>
+                    <label for="name">Nome</label>
+                    <input type="text" name="name" id="name" placeholder="Digite seu nome" autocomplete="off" />
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email" placeholder="Digite seu email" autocomplete="off"/>
+                    <label for="message">Mensagem</label>
+                    <textarea name="message" id="message" cols="30" rows="7" placeholder="Envie-nos um elogio, sugestão ou o que desejar"></textarea>
+                    <!-- Load Inicio -->
+                    <div id="loadSendMsg">
+                        <div id="load" class="loader" style="display: none"></div>
+                    </div>
+                    <!-- Load Fim -->
+                    <button class="button" type="button" id="btnSendMsg">
+                        Enviar
+                    </button>
+                </form>
+            </div>
+        </div>
     </body>
     <script src="/public/js/navbar.js"></script>
+    <script src="/public/js/sendMessage.js"></script>
 </html>

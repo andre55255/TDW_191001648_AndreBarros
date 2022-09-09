@@ -18,3 +18,9 @@
 
 /* Footer */
 @import "./footer/footer.css";
+
+/* Modal */
+@import "./modal/modal.css";
+
+/* Load */
+@import "./load/load.css";
