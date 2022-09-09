@@ -9,3 +9,12 @@
 
 /* Home */
 @import "./home/home.css";
+
+/* About */
+@import "./about/about.css";
+
+/* Partners */
+@import "./partners/partners.css";
+
+/* Footer */
+@import "./footer/footer.css";

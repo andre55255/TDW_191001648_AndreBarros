@@ -10,4 +10,7 @@
     --white-color: #ffffff;
     --white-color-secondary: #ececec;
     --white-color-third: #fefefe;
+    --background-gray: rgba(164, 164, 164, 0.05);
+    --background-gray-secondary: rgba(164, 164, 164, 0.1);
+    --background-gray-third: rgba(164, 164, 164, 0.15);
 }
