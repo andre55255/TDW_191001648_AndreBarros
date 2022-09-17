@@ -11,6 +11,7 @@ document.forms.form_contact.onsubmit = async (e) => {
 
         const data = {
             name: formData.get("name"),
+            email: formData.get("email"),
             cpf: formData.get("cpf"),
             sex: formData.get("sex"),
             phone: formData.get("phone"),
@@ -22,6 +23,12 @@ document.forms.form_contact.onsubmit = async (e) => {
         if (isValidName) {
             closeLoad();
             return alert(isValidName);
+        }
+
+        const isValidEmail = validEmail(data.email);
+        if (isValidEmail) {
+            closeLoad();
+            return alert(isValidEmail);
         }
 
         const isvalidCpf = validCpf(data.cpf);
@@ -88,6 +95,16 @@ const validName = (value) => {
         return "Nome deve ter entre 3 e 50 caracteres";
     return "";
 };
+
+const validEmail = (value) => {
+    if (!value) return "Email não informado";
+    const reg = /\S+@\S+\.\S+/;
+    const result = reg.test(value); 
+    if (result)
+        return "";
+    else
+        return "Email inválido"
+}
 
 const validCpf = (value) => {
     if (!value) return "Cpf nao informado";
