@@ -1,0 +1,19 @@
+{
+  "name": "20220901",
+  "version": "1.0.0",
+  "description": "A simple system manuel's bakehouse html css",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "André Luiz Barros",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}

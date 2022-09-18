@@ -1,0 +1,26 @@
+/* Utils */
+@import "./utlities/global.css";
+@import "./utlities/typhografy.css";
+@import "./utlities/colors.css";
+@import "./utlities/container.css";
+
+/* Header */
+@import "./header/header.css";
+
+/* Home */
+@import "./home/home.css";
+
+/* About */
+@import "./about/about.css";
+
+/* Partners */
+@import "./partners/partners.css";
+
+/* Footer */
+@import "./footer/footer.css";
+
+/* Modal */
+@import "./modal/modal.css";
+
+/* Load */
+@import "./load/load.css";

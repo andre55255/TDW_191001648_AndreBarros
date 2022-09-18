@@ -1,0 +1,9 @@
+{
+    "name": "André Luiz Barros",
+    "cpf": "14516963612",
+    "sex": "masculino",
+    "phone": "31995600166",
+    "rate": "Bom",
+    "message": "òtimo atendimento"
+}
+{"name":"Felipe Maia","cpf":"14516963612","sex":"masculino","phone":"31987785225","rate":"Regular","message":"Achei meio bosta"}
