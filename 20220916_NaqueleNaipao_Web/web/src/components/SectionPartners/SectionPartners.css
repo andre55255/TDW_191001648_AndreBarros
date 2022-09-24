@@ -13,12 +13,12 @@
     margin-top: 2.5rem;
     text-align: center;
     color: var(--title-color);
-    font-family: var(--title-font);
-    font-weight: var(--font-semi-bold);
-    font-size: var(--title-font-size);
+    font-weight: 600;
+    font-size: 2.2rem;
 }
 
 .partners-title-secondary {
+    margin-left: .5rem;
     color: var(--primary-color);
 }
 
@@ -26,9 +26,8 @@
     margin-top: 1.5625rem;
     margin-bottom: 0.9375rem;
     text-align: center;
-    font-size: var(--normal-font-size);
-    font-family: var(--paragraphy-font);
-    font-weight: var(--font-regular);
+    font-size: 0.92rem;
+    font-weight: 400;
     color: var(--paragraphy-color-light);
 }
 
@@ -52,9 +51,8 @@
 }
 
 .partners-icons-title {
-    font-family: var(--title-font);
-    font-weight: var(--font-semi-bold);
-    font-size: var(--normal-font-size);
+    font-weight: 600;
+    font-size: 0.92rem;
     color: var(--title-color);
     margin-top: 1.25rem;
     margin-bottom: 1.875rem;

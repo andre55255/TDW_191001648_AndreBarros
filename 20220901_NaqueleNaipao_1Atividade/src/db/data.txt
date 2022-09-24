@@ -7,3 +7,4 @@
     "message": "òtimo atendimento"
 }
 {"name":"Felipe Maia","cpf":"14516963612","sex":"masculino","phone":"31987785225","rate":"Regular","message":"Achei meio bosta"}
+{"name":"André Luiz Barros","email":"andre_luiz.b52@secondmind.com.br","cpf":"14516963612","sex":"masculino","phone":"31995600166","rate":"Regular","message":"Otimo"}

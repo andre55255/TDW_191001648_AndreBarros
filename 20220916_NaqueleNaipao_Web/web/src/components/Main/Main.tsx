@@ -1,6 +1,7 @@
 import React from 'react';
-import SectionAbout from '../SectionAbout/SectionAbout';
+
 import SectionHome from '../SectionHome/SectionHome';
+import SectionAbout from '../SectionAbout/SectionAbout';
 import SectionPartners from '../SectionPartners/SectionPartners';
 
 export default function Main() {

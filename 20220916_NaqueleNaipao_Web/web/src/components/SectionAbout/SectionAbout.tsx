@@ -11,8 +11,8 @@ export default function SectionAbout() {
                     className="about-img"
                     src={ImgAbout}
                     width="413"
-                    height="524"
                     alt="Imagem sobre a padaria"
+                    loading="lazy"
                 />
                 <div className="about-data">
                     <h1 className="about-title">Sobre nós</h1>
@@ -27,6 +27,7 @@ export default function SectionAbout() {
                         <li>Bom senso</li>
                     </ul>
                     <a href="#partners" className="button">
+                        Nossos parceiros
                         <BiArrowToRight className="about-icon" />
                     </a>
                 </div>

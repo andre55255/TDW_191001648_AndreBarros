@@ -14,6 +14,7 @@ export default function Footer() {
                             src={logoHorizontal}
                             alt="Logo"
                             className="footer-logo-img"
+                            loading="lazy"
                         />
                     </a>
 
@@ -42,9 +43,9 @@ export default function Footer() {
                             Conselheiro Lafaiete - MG
                         </p>
                     </small>
-                    <a href="#openModalSendMessage" className="button">
+                    <a href="#login" className="button">
                         Enviar mensagem
-                        <BiArrowToRight className="about_icon" />
+                        <BiArrowToRight className="about-icon" />
                     </a>
                 </div>
             </div>

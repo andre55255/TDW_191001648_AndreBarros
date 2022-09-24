@@ -1,21 +1,19 @@
 import React from "react";
 
-import "../Container/colors.css";
-import "../Container/container.css";
-import "../Container/global.css";
-import "../Container/typhografy.css";
+import "../Utils/Variables.css";
+import "../Utils/Container.css";
 
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
 
 type Props = {
-    homepage?: boolean,
+    isHomePage?: boolean,
     children?: React.ReactNode
 };
 
-export default function Template({ homepage, children }: Props): JSX.Element {
-    if (homepage) {
+export default function Template({ isHomePage, children }: Props): JSX.Element {
+    if (isHomePage) {
         return (
             <div className="container">
                 <Header />

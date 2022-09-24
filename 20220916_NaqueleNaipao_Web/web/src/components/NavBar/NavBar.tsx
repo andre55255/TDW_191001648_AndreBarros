@@ -1,38 +1,42 @@
-import React from "react";
-import logoHorizontal from "../../assets/logoHorizontalFundoBrancoAdjusted.png";
-import { BiX, BiMenu } from "react-icons/bi";
+import React, { useEffect } from "react";
 import "./NavBar.css";
 
+import Logo from "../../assets/logoHorizontalFundoBrancoAdjusted.png";
+import { BiX, BiMenu } from "react-icons/bi";
+
 export default function NavBar() {
-    (function () {
+
+    useEffect(() => {
+        console.log("Opa")
+
         const navMenu = document.getElementById("nav-menu");
         const navToggle = document.getElementById("nav-toggle");
         const navClose = document.getElementById("nav-close");
-
+    
         if (navToggle) {
             navToggle.addEventListener("click", (e) => {
                 navMenu?.classList.add("show-menu");
             });
         }
-
+    
         if (navClose) {
             navClose.addEventListener("click", () => {
                 navMenu?.classList.add("show-menu");
             });
         }
-
+    
         const collapseMenuMobile = function () {
             const navMenu = document.getElementById("nav-menu");
             navMenu?.classList.remove("show-menu");
         };
         navMenu?.addEventListener("click", collapseMenuMobile);
-    })();
+    }, []);
 
     return (
         <nav className="nav container">
             <div className="nav-box">
-                <a href="#/" className="nav-logo">
-                    <img src={logoHorizontal} alt="Logo" />
+                <a href="/" className="nav-logo">
+                    <img src={Logo} alt="Logo" loading="lazy" />
                 </a>
             </div>
             <div className="nav-menu" id="nav-menu">
@@ -55,6 +59,11 @@ export default function NavBar() {
                     <li className="nav-item">
                         <a href="#contact" className="nav-link">
                             Contato
+                        </a>
+                    </li>
+                    <li className="nav-item">
+                        <a href="#login" id="btn-login">
+                            Login
                         </a>
                     </li>
                 </ul>
