@@ -2,26 +2,26 @@ const path = require("path");
 const fs = require("fs");
 const { getBasePath } = require("../helpers/staticMethods");
 
-const pathDb = getBasePath() + path.sep + "db" + path.sep + "dbProduct.json";
-let dbProducts = [];
+const pathDb = getBasePath() + path.sep + "db" + path.sep + "dbCategory.json";
+let dbCategories = [];
 fs.readFile(pathDb, (err, data) => {
     if (err) {
-        dbProducts = null;
+        console.log(err);
+        dbCategories = null;
         return;
     }
-
-    dbProducts = JSON.parse(data);
+    dbCategories = JSON.parse(data);
     return;
 });
 
 const getById = (id) => {
     try {
-        const product = dbProducts.filter((prod) => {
-            return prod.id == id;
+        const model = dbCategories.filter((mod) => {
+            return mod.id == id;
         });
 
-        if (product && product.length) {
-            return product;
+        if (model && model.length) {
+            return model;
         }
 
         return null;
@@ -33,7 +33,7 @@ const getById = (id) => {
 
 const getAll = () => {
     try {
-        if (dbProducts) return dbProducts;
+        if (dbCategories) return dbCategories;
 
         return null;
     } catch (err) {
@@ -42,24 +42,24 @@ const getAll = () => {
     }
 };
 
-const create = (product) => {
+const create = (model) => {
     try {
-        const idCurrent = dbProducts.reduce((modPrev, modCurr) => {
-            return modCurr.id;
+        const idCurrent = dbCategories.reduce((catPrev, catCurr) => {
+            return catCurr.id;
         }, 0);
-        product.id = idCurrent <= 0 ? 1 : idCurrent + 1;
+        model.id = idCurrent <= 0 ? 1 : idCurrent+1;
 
-        const resultCreated = dbProducts.push(product);
+        const resultCreated = dbCategories.push(model);
 
         fs.writeFile(pathDb, "", null, (err) => {
             if (err) throw err;
         });
-        fs.writeFile(pathDb, JSON.stringify(dbProducts), null, (err) => {
+        fs.writeFile(pathDb, JSON.stringify(dbCategories), null, (err) => {
             if (err) throw err;
         });
 
         if (resultCreated > 0) {
-            return product;
+            return model;
         }
 
         return null;
@@ -69,30 +69,30 @@ const create = (product) => {
     }
 };
 
-const edit = (product) => {
+const edit = (model) => {
     try {
-        const prodExist = dbProducts.filter((prod) => {
-            return prod.id == product.id;
+        const modelExist = dbCategories.filter((mod) => {
+            return mod.id == model.id;
         });
-        if (!prodExist || !prodExist.length) {
+        if (!modelExist || !modelExist.length) {
             return null;
         }
 
-        const dbProductsEdited = dbProducts.map((prod) => {
-            if (prod.id != product.id) return prod;
-            else return product;
+        const dbEdited = dbCategories.map((mod) => {
+            if (mod.id != model.id) return mod;
+            else return model;
         });
 
         fs.writeFile(pathDb, "", null, (err) => {
             if (err) throw err;
         });
 
-        fs.writeFile(pathDb, JSON.stringify(dbProductsEdited), null, (err) => {
+        fs.writeFile(pathDb, JSON.stringify(dbEdited), null, (err) => {
             if (err) throw err;
         });
 
-        if (dbProductsEdited) {
-            return product;
+        if (dbEdited) {
+            return model;
         }
 
         return null;
@@ -104,10 +104,10 @@ const edit = (product) => {
 
 const remove = (id) => {
     try {
-        const dbProductsEdited = dbProducts.filter((prod) => {
+        const dbEdited = dbCategories.filter((prod) => {
             return prod.id != id;
         });
-        if (dbProducts.length == dbProductsEdited.length) {
+        if (dbCategories.length == dbEdited.length) {
             return false;
         }
 
@@ -115,11 +115,11 @@ const remove = (id) => {
             if (err) throw err;
         });
 
-        fs.writeFile(pathDb, JSON.stringify(dbProductsEdited), null, (err) => {
+        fs.writeFile(pathDb, JSON.stringify(dbEdited), null, (err) => {
             if (err) throw err;
         });
 
-        if (dbProductsEdited) {
+        if (dbEdited) {
             return true;
         }
 

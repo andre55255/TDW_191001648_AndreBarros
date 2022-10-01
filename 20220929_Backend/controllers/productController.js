@@ -1,4 +1,5 @@
 const productModel = require("../models/productModel");
+const categoryModel = require("../models/categoryModel");
 const { buildResponse } = require("../helpers/staticMethods");
 
 const getAll = (req, res) => {
@@ -32,7 +33,7 @@ const getById = (req, res) => {
             return res
                 .status(200)
                 .json(
-                    buildResponse(true, "Produto listado com sucesso", product)
+                    buildResponse(true, "Produto listado com sucesso", product[0])
                 );
         }
 
@@ -54,6 +55,19 @@ const getById = (req, res) => {
 const create = (req, res) => {
     try {
         const product = req.body;
+
+        const categoryExist = categoryModel.getById(product.categoryId);
+        if (!categoryExist || categoryExist.length <= 0) {
+            return res
+                .status(400)
+                .json(
+                    buildResponse(
+                        false,
+                        "Não existe nenhuma categoria para o id informado (categoryId)"
+                    )
+                );
+        }
+        product.category = categoryExist[0];
 
         const resultCreated = productModel.create(product);
 
@@ -93,6 +107,19 @@ const edit = (req, res) => {
                 .status(400)
                 .json(buildResponse(false, "Produto não encontrado"));
         }
+
+        const categoryExist = categoryModel.getById(product.categoryId);
+        if (!categoryExist || categoryExist.length <= 0) {
+            return res
+                .status(400)
+                .json(
+                    buildResponse(
+                        false,
+                        "Não existe nenhuma categoria para o id informado (categoryId)"
+                    )
+                );
+        }
+        product.category = categoryExist[0];
 
         const productEdited = productModel.edit(product);
 

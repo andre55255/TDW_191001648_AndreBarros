@@ -2,7 +2,7 @@ const { buildResponse } = require("../helpers/staticMethods");
 
 const save = (req, res, next) => {
     try {
-        const { description, barCode, quantity, minQuantity, valueUnitary } =
+        const { description, categoryId, barCode, quantity, minQuantity, valueUnitary } =
             req.body;
 
         if (!description || description.length > 30) {
@@ -12,6 +12,16 @@ const save = (req, res, next) => {
                     buildResponse(
                         false,
                         "Descrição(description) é obrigatória e deve ter no máximo 30 caracteres"
+                    )
+                );
+        }
+        if (!categoryId || categoryId <= 0) {
+            return res
+                .status(400)
+                .json(
+                    buildResponse(
+                        false,
+                        "Id da Categoria(categoryId) é obrigatória e deve ser maior que zero"
                     )
                 );
         }
