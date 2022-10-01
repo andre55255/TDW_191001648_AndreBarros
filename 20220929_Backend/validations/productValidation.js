@@ -15,7 +15,7 @@ const save = (req, res, next) => {
                     )
                 );
         }
-        if (!categoryId || categoryId <= 0) {
+        if (!categoryId || isNaN(categoryId) || categoryId <= 0) {
             return res
                 .status(400)
                 .json(
