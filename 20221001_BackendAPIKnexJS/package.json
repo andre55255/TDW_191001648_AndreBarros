@@ -1,0 +1,35 @@
+{
+  "name": "backendnaquelenaipao",
+  "version": "1.0.0",
+  "description": "API naquele Naipao",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon ./src/server.js",
+    "knex:migrate:make": "knex --knexfile src/config/database/knexfile.js migrate:make",
+    "knex:migrate:latest": "knex --knexfile src/config/database/knexfile.js migrate:latest",
+    "knex:migrate:rollback": "knex --knexfile src/config/database/knexfile.js migrate:rollback"
+  },
+  "keywords": [
+    "API",
+    "Node",
+    "Knex",
+    "Express",
+    "Mvvm"
+  ],
+  "author": "André Luiz Barros",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1",
+    "express-validator": "^6.14.2",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^2.3.0",
+    "mysql2": "^2.3.3",
+    "winston": "^3.8.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}
