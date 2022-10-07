@@ -58,6 +58,34 @@ const create = async (user) => {
     }
 };
 
+const getAll = async () => {
+    try {
+        const users = await userRepo.getAll();
+        if (!users) {
+            return buildResult(false, "Não foi possível listar usuários");
+        }
+        return buildResult(true, "Usuários listados com sucesso", users);
+    } catch (err) {
+        logger.error("userService getAll - Exceção: " + err);
+        return buildResult(false, "Falha ao buscar usuários");
+    }
+}
+
+const getById = async (id) => {
+    try {
+        const users = await userRepo.getById(id);
+        if (!users) {
+            return buildResult(false, "Não foi possível lista usuário por id");
+        }
+        return buildResult(true, "Usuários listado com sucesso", users);
+    } catch (err) {
+        logger.error("userService getById - Exceção: " + err);
+        return buildResult(false, "Falha ao listar usuário por id");
+    }
+} 
+
 module.exports = {
     create,
+    getAll,
+    getById
 };
