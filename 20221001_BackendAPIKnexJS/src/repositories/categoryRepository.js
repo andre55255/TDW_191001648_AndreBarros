@@ -79,6 +79,27 @@ const getById = async (id) => {
     }
 };
 
+const getByDescription = async (description) => {
+    try {
+        const modelSave = await db
+            .select([
+                "TB_Categoria.IDCategoria as id",
+                "TB_Categoria.Descricao as description",
+            ])
+            .table("TB_Categoria")
+            .where("TB_Categoria.Descricao", description);
+
+        if (!modelSave) {
+            return null;
+        }
+
+        return modelSave[0];
+    } catch (err) {
+        logger.error("categoryRepository getByDescription - Exceção: " + err);
+        return null;
+    }
+};
+
 const getAll = async () => {
     try {
         const modelSaves = await db
@@ -104,5 +125,6 @@ module.exports = {
     update,
     remove,
     getById,
+    getByDescription,
     getAll,
 };

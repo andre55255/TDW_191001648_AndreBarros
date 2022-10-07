@@ -6,7 +6,7 @@ const create = async (model) => {
     try {
         const { description } = model;
 
-        const modelExist = await catRepo.getById(id);
+        const modelExist = await catRepo.getByDescription(description);
         if (modelExist) {
             logger.error(
                 "categoryService create - Categoria já existe: " + description
@@ -54,7 +54,7 @@ const remove = async (id) => {
             );
             return buildResult(false, "Falha ao deletar categoria");
         }
-        logger.error(
+        logger.info(
             "categoryService remove - Categoria deletada com sucesso, id: " + id
         );
         return buildResult(true, "Categoria deletada com sucesso");
@@ -81,7 +81,7 @@ const update = async (model) => {
             IDCategoria: id,
             Descricao: description,
         };
-        const result = await catRepo.create(modelEntity);
+        const result = await catRepo.update(modelEntity, id);
         if (!result.success) {
             logger.error(
                 "categoryService update - Falha ao editar categoria: " +
@@ -89,8 +89,8 @@ const update = async (model) => {
             );
             return buildResult(false, "Falha ao editar categoria");
         }
-        logger.error(
-            "categoryService update - Categoria editar com sucesso: " +
+        logger.info(
+            "categoryService update - Categoria editada com sucesso: " +
                 description
         );
 

@@ -11,9 +11,11 @@ app.use(express.urlencoded({ extended: true }));
 
 // Routes
 const accRouter = require("./routes/accountRouter");
+const catRouter = require("./routes/categoryRouter");
 const userRouter = require("./routes/userRouter");
 
 app.use("/account", accRouter);
+app.use("/category", catRouter);
 app.use("/user", userRouter);
 
 app.listen(PORT_SERVER, () => logger.info(`Listening in port ${PORT_SERVER}`));
