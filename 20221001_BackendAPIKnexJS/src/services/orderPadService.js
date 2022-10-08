@@ -2,6 +2,7 @@ const orderPadRepo = require("../repositories/orderPadRepository");
 const prodRepo = require("../repositories/productRepository");
 const { buildResult } = require("../helpers/staticMethods");
 const { logger } = require("../middlewares/logger");
+const moment = require("moment");
 
 const createFull = async (model) => {
     try {
@@ -49,17 +50,45 @@ const createFull = async (model) => {
         );
         if (!resultCreated.success) {
             logger.error(
+                "orderPadService createFull - Falha ao criar comanda: " +
+                    resultCreated.message
+            );
+            return buildResult(false, "Falha ao criar comanda");
+        }
+        logger.info(
+            "orderPadService createFull - Comanda criada com sucesso: " +
+                description
+        );
+
+        const modelSave = await orderPadRepo.getById(resultCreated.object.id);
+        return buildResult(true, "Comanda criada com sucesso", modelSave);
+    } catch (err) {
+        logger.error("orderPadService createFull - Exceção: " + err);
+        return buildResult(false, "Falha ao criar comanda");
+    }
+};
+
+const create = async (model) => {
+    try {
+        const { date } = model;
+        
+        const modelEntity = {
+            DataComanda: moment(date).toDate()
+        };
+        const resultCreated = await orderPadRepo.create(modelEntity);
+        if (!resultCreated.success) {
+            logger.error(
                 "orderPadService create - Falha ao criar comanda: " +
                     resultCreated.message
             );
             return buildResult(false, "Falha ao criar comanda");
         }
-        logger.error(
+        logger.info(
             "orderPadService create - Comanda criada com sucesso: " +
-                description
+                resultCreated.object.id
         );
 
-        const modelSave = await prod.getById(resultCreated.object.id);
+        const modelSave = await orderPadRepo.getById(resultCreated.object.id);
         return buildResult(true, "Comanda criada com sucesso", modelSave);
     } catch (err) {
         logger.error("orderPadService create - Exceção: " + err);
@@ -94,7 +123,7 @@ const remove = async (id) => {
     }
 };
 
-const updateDate = async (model) => {
+const update = async (model) => {
     try {
         const { id, date } = model;
 
@@ -108,7 +137,7 @@ const updateDate = async (model) => {
 
         const modelEntity = {
             IDComanda: id,
-            DataComanda: new Date(date)
+            DataComanda: new Date(date),
         };
         const result = await orderPadRepo.update(modelEntity, id);
         if (!result.success) {
@@ -119,8 +148,7 @@ const updateDate = async (model) => {
             return buildResult(false, "Falha ao editar comanda");
         }
         logger.error(
-            "orderPadService update - Comanda editada com sucesso: " +
-                id
+            "orderPadService update - Comanda editada com sucesso: " + id
         );
 
         const modelSave = await orderPadRepo.getById(result.object.id);
@@ -148,10 +176,7 @@ const getById = async (id) => {
     try {
         const modelSave = await orderPadRepo.getById(id);
         if (!modelSave) {
-            return buildResult(
-                false,
-                "Não foi possível listar comanda por id"
-            );
+            return buildResult(false, "Não foi possível listar comanda por id");
         }
         return buildResult(true, "Comanda listada com sucesso", modelSave);
     } catch (err) {
@@ -163,7 +188,8 @@ const getById = async (id) => {
 module.exports = {
     createFull,
     remove,
-    updateDate,
+    update,
     getAll,
     getById,
+    create
 };

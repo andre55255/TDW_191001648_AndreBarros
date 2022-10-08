@@ -6,7 +6,7 @@ const { logger } = require("../middlewares/logger");
 
 const create = async (model) => {
     try {
-        const { quantity, valueUnitary, orderPadId, productId } = model;
+        const { quantity, orderPadId, productId } = model;
 
         const orderPadExist = await orderPad.getById(orderPadId);
         if (!orderPadExist) {
@@ -26,11 +26,25 @@ const create = async (model) => {
             return buildResult(false, "Produto não encontrado para vincular");
         }
 
+        if (productExist.quantity < quantity) {
+            logger.error(
+                `orderPadItemService create - 
+                não há produtos suficientes em estoque, 
+                produto: ${productExist.description}, 
+                quantidade em estoque: ${productExist.quantity}, 
+                quantidade informada: ${quantity}`
+            );
+            return buildResult(
+                false,
+                `Quantidade em estoque excedida. Há ${productExist.quantity} em estoque`
+            );
+        }
+
         const modelEntity = {
             Quantidade: quantity,
-            ValorUnitario: valueUnitary,
+            ValorUnitario: productExist.valueUnitary,
             IDComanda: orderPadId,
-            IDProduto: productId
+            IDProduto: productId,
         };
         const resultCreated = await orderPadItem.create(modelEntity);
         if (!resultCreated.success) {
@@ -40,13 +54,31 @@ const create = async (model) => {
             );
             return buildResult(false, "Falha ao criar item de comanda");
         }
+
+        const newQuantity = productExist.quantity - quantity;
+        const resultUpdatedQuantityProd = await prodRepo.updateQuantityProduct(
+            productExist.id,
+            newQuantity
+        );
+        if (!resultUpdatedQuantityProd || !resultUpdatedQuantityProd.success) {
+            logger.error(
+                "orderPadItemService create - Falha ao atualizar quantidade em estoque de produto: " +
+                    resultUpdatedQuantityProd.message
+            );
+            return resultUpdatedQuantityProd;
+        }
+
         logger.error(
             "orderPadItemService create - Item de comanda criado com sucesso: " +
                 resultCreated.object.id
         );
 
         const modelSave = await orderPadItem.getById(resultCreated.object.id);
-        return buildResult(true, "Item de comanda criado com sucesso", modelSave);
+        return buildResult(
+            true,
+            "Item de comanda criado com sucesso",
+            modelSave
+        );
     } catch (err) {
         logger.error("orderPadItemService create - Exceção: " + err);
         return buildResult(false, "Falha ao criar item de comanda");
@@ -58,7 +90,8 @@ const remove = async (id) => {
         const modelExist = await orderPadItem.getById(id);
         if (!modelExist) {
             logger.error(
-                "orderPadItemService remove - Item de comanda não existe, id: " + id
+                "orderPadItemService remove - Item de comanda não existe, id: " +
+                    id
             );
             return buildResult(false, "Item de comanda não encontrado");
         }
@@ -70,8 +103,31 @@ const remove = async (id) => {
             );
             return buildResult(false, "Falha ao deletar item de comanda");
         }
+
+        const productExist = await prodRepo.getById(modelExist.product.id);
+        if (!productExist) {
+            logger.error(
+                "orderPadItemService remove - Produto não encontrado para atualizar, id: " +
+                    modelExist.product.id
+            );
+            return buildResult(false, "Produto não encontrado para atulizar");
+        }
+        const newQuantity = productExist.quantity + modelExist.quantity;
+        const resultUpdatedQuantityProd = await prodRepo.updateQuantityProduct(
+            productExist.id,
+            newQuantity
+        );
+        if (!resultUpdatedQuantityProd || !resultUpdatedQuantityProd.success) {
+            logger.error(
+                "orderPadItemService update - Falha ao atualizar quantidade em estoque de produto: " +
+                    resultUpdatedQuantityProd.message
+            );
+            return resultUpdatedQuantityProd;
+        }
+
         logger.info(
-            "orderPadItemService remove - Item de comanda deletado com sucesso, id: " + id
+            "orderPadItemService remove - Item de comanda deletado com sucesso, id: " +
+                id
         );
         return buildResult(true, "Item de comanda deletado com sucesso");
     } catch (err) {
@@ -87,7 +143,8 @@ const update = async (model) => {
         const modelExist = await orderPadItem.getById(id);
         if (!modelExist) {
             logger.error(
-                "orderPadItemService update - Item de comanda não existe, id: " + id
+                "orderPadItemService update - Item de comanda não existe, id: " +
+                    id
             );
             return buildResult(false, "Item de comanda não encontrado");
         }
@@ -101,6 +158,7 @@ const update = async (model) => {
             return buildResult(false, "Comanda não encontrada para vincular");
         }
 
+        const quantityDiffOrderItem = modelExist.quantity - quantity;
         const productExist = await prodRepo.getById(productId);
         if (!productExist) {
             logger.error(
@@ -115,7 +173,7 @@ const update = async (model) => {
             Quantidade: quantity,
             ValorUnitario: valueUnitary,
             IDComanda: orderPadId,
-            IDProduto: productId
+            IDProduto: productId,
         };
         const result = await orderPadItem.update(modelEntity, id);
         if (!result.success) {
@@ -125,13 +183,36 @@ const update = async (model) => {
             );
             return buildResult(false, "Falha ao editar item de comanda");
         }
+
+        let newQuantity = 0;
+        if (quantityDiffOrderItem > 0) {
+            newQuantity = productExist.quantity + quantityDiffOrderItem;
+        } else {
+            newQuantity = productExist.quantity - quantityDiffOrderItem;
+        }
+        const resultUpdatedQuantityProd = await prodRepo.updateQuantityProduct(
+            productExist.id,
+            newQuantity
+        );
+        if (!resultUpdatedQuantityProd || !resultUpdatedQuantityProd.success) {
+            logger.error(
+                "orderPadItemService update - Falha ao atualizar quantidade em estoque de produto: " +
+                    resultUpdatedQuantityProd.message
+            );
+            return resultUpdatedQuantityProd;
+        }
+        
         logger.error(
             "orderPadItemService update - Item de comanda editado com sucesso: " +
                 id
         );
 
         const modelSave = await orderPadItem.getById(result.object.id);
-        return buildResult(true, "Item de comanda editado com sucesso", modelSave);
+        return buildResult(
+            true,
+            "Item de comanda editado com sucesso",
+            modelSave
+        );
     } catch (err) {
         logger.error("orderPadItemService update - Exceção: " + err);
         return buildResult(false, "Falha ao editar item de comanda");
@@ -142,9 +223,16 @@ const getAll = async () => {
     try {
         const modelSaves = await orderPadItem.getAll();
         if (!modelSaves) {
-            return buildResult(false, "Não foi possível listar itens de comanda");
+            return buildResult(
+                false,
+                "Não foi possível listar itens de comanda"
+            );
         }
-        return buildResult(true, "Itens de comanda listados com sucesso", modelSaves);
+        return buildResult(
+            true,
+            "Itens de comanda listados com sucesso",
+            modelSaves
+        );
     } catch (err) {
         logger.error("orderPadItemService getAll - Exceção: " + err);
         return buildResult(false, "Falha ao buscar itens de comanda");
@@ -160,7 +248,11 @@ const getById = async (id) => {
                 "Não foi possível listar item de comanda por id"
             );
         }
-        return buildResult(true, "Item de comanda listado com sucesso", modelSave);
+        return buildResult(
+            true,
+            "Item de comanda listado com sucesso",
+            modelSave
+        );
     } catch (err) {
         logger.error("orderPadItemService getById - Exceção: " + err);
         return buildResult(false, "Falha ao listar item de comanda por id");

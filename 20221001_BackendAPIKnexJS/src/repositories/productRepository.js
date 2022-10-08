@@ -227,6 +227,24 @@ const getProductsByUnitOfMeasurementId = async (id) => {
     }
 }
 
+const updateQuantityProduct = async (id, quantity) => {
+    try {
+        const resultUpdated = await db
+            .update({ Quantidade: quantity })
+            .table("TB_Produtos")
+            .where("TB_Produtos.IDProduto", id);
+
+        if (!resultUpdated) {
+            return buildResult(false, "Falha ao atualizar quantiade de Produto");
+        }
+
+        return buildResult(true, "Produto atualizado com sucesso");
+    } catch (err) {
+        logger.error("productRepository updateQuantityProduct - Exceção: " + err);
+        return buildResult(false, "Falha ao atualizar quantidade de Produto na base de dados");
+    }
+}
+
 const getAll = async () => {
     try {
         const modelSaves = await db
@@ -292,5 +310,6 @@ module.exports = {
     getById,
     getProductsByCategoryId,
     getProductsByUnitOfMeasurementId,
+    updateQuantityProduct,
     getAll,
 };
