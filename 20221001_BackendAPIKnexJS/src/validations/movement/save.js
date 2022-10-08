@@ -1,4 +1,5 @@
 const { check } = require("express-validator");
+const moment = require("moment");
 
 const validationMovement = [
     check("description")
@@ -12,7 +13,14 @@ const validationMovement = [
         .notEmpty()
         .withMessage("Data de movimento não informada")
         .isDate()
-        .withMessage("Data de movimento inválido"),
+        .withMessage("Data de movimento inválido")
+        .custom((val) => {
+            if (moment(val).toDate() > new Date()) {
+                return false;
+            }
+            return true;
+        })
+        .withMessage("Data de movimento não pode ser maior que a atual"),
     check("value")
         .notEmpty()
         .withMessage("Valor de movimento não informado")

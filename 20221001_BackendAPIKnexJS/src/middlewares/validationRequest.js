@@ -10,7 +10,7 @@ const validationRequest = async (req, res, next) => {
                 .map((err) => {
                     return err.msg;
                 })
-                .join(", ");
+                [0];
             return res.status(400).json(buildApiResponse(false, 400, message));
         }
     

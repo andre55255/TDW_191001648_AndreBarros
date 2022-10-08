@@ -27,7 +27,7 @@ app.use("/orderPad", orderPadRouter);
 app.use("/orderPadItem", orderPadItemRouter);
 app.use("/product", productRouter);
 app.use("/role", roleRouter);
-app.use("/unitOfMeasument", unitOfMeasRouter);
+app.use("/unitOfMeasurement", unitOfMeasRouter);
 app.use("/user", userRouter);
 
 app.listen(PORT_SERVER, () => logger.info(`Listening in port ${PORT_SERVER}`));

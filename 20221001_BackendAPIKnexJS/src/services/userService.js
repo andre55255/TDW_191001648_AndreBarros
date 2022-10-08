@@ -10,14 +10,14 @@ const create = async (user) => {
         const { login, name, password, roleId } = user;
         const roleExist = await roleRepo.getById(roleId);
         if (!roleExist) {
-            logger.warn(
+            logger.error(
                 "userService create - Perfil não encontrado, usuario: " + roleId
             );
             return buildResult(false, "Perfil não encontrado");
         }
         const userLoginExists = await userRepo.getByLogin(login);
         if (userLoginExists) {
-            logger.warn(
+            logger.error(
                 "userService create - Já existe um usuário com este login: " +
                     login
             );
@@ -29,7 +29,7 @@ const create = async (user) => {
         }
         const hashPassword = await hash(password, 10);
         if (!hashPassword) {
-            logger.warn(
+            logger.error(
                 "userService create - Falha ao encriptar senha de usuário: " +
                     user.login
             );
@@ -102,14 +102,22 @@ const update = async (user) => {
         const userByLoginExist = await userRepo.getByLogin(login);
         if (userByLoginExist && userByIdExist.id != id) {
             logger.error(
-                "userService update - Usuário não encontrado, login: " + login
+                "userService update - Já existe um usuário com este login, login: " + login
             );
-            return buildResult(false, "Usuário não encontrado");
+            return buildResult(false, "Já existe um usuário com este login");
+        }
+
+        const roleExist = await roleRepo.getById(roleId);
+        if (!roleExist) {
+            logger.error(
+                "userService update - Perfil não encontrado, usuario: " + roleId
+            );
+            return buildResult(false, "Perfil não encontrado");
         }
 
         const hashPassword = await hash(password, 10);
         if (!hashPassword) {
-            logger.warn(
+            logger.error(
                 "userService update - Falha ao encriptar senha de usuário: " +
                     user.login
             );
@@ -126,14 +134,14 @@ const update = async (user) => {
             IDPerfil: roleId,
         };
         const result = await userRepo.update(userEntitySave, id);
-        if (result.success) {
+        if (result && result.success) {
             logger.info(
                 "userService update - Usuário editado, login: " + login
             );
-            const userSave = await userRepo.getById(result.object.id);
+            const userSave = await userRepo.getById(id);
             return buildResult(true, "Usuário editado com sucesso", userSave);
         }
-        logger.info(
+        logger.error(
             `userService update - Falha ao editar usuário, login ${login}, exceção: ${result.message}`
         );
         return buildResult(false, "Falha ao editar usuário");

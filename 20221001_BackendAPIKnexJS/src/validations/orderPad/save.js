@@ -7,12 +7,8 @@ const validationOrderPad = [
         .withMessage("Data da comanda não informada")
         .isDate()
         .withMessage("Data da comanda inválida")
-        .custom((dat) => {
-            const isValid = moment(dat).isValid();
-            if (!isValid) {
-                return false;
-            }
-            if (moment(dat).toDate() > new Date()) {
+        .custom((val) => {
+            if (moment(val).toDate() > new Date()) {
                 return false;
             }
             return true;

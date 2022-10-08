@@ -1,4 +1,5 @@
 const movementRepo = require("../repositories/movementRepository");
+const moment = require("moment");
 const userRepo = require("../repositories/userRepository");
 const { buildResult } = require("../helpers/staticMethods");
 const { logger } = require("../middlewares/logger");
@@ -19,7 +20,7 @@ const create = async (model) => {
         const modelEntity = {
             Descricao: description,
             Tipo: value <= 0 ? "Saída" : "Entrada",
-            DataMovimento: date,
+            DataMovimento: moment(date).subtract(3, "hours").toDate(),
             Valor: value,
             IDUsuario: userId,
         };
@@ -31,7 +32,7 @@ const create = async (model) => {
             );
             return buildResult(false, "Falha ao criar movimento");
         }
-        logger.error(
+        logger.info(
             "movementService create - Movimento criado com sucesso: " +
                 description
         );
@@ -96,7 +97,7 @@ const update = async (model) => {
             IDMovimento: id,
             Descricao: description,
             Tipo: type,
-            DataMovimento: date,
+            DataMovimento: moment(date).subtract(3, "hours").toDate(),
             Valor: value,
             IDUsuario: userId
         };
@@ -108,12 +109,12 @@ const update = async (model) => {
             );
             return buildResult(false, "Falha ao editar movimento");
         }
-        logger.error(
+        logger.info(
             "movementService update - Movimento editado com sucesso: " +
                 description
         );
 
-        const modelSave = await movementRepo.getById(result.object.id);
+        const modelSave = await movementRepo.getById(id);
         return buildResult(true, "Movimento editado com sucesso", modelSave);
     } catch (err) {
         logger.error("movementService update - Exceção: " + err);

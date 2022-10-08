@@ -76,7 +76,7 @@ const getById = async (id) => {
             ])
             .table("TB_Movimento")
             .innerJoin(
-                "TB_Movimento",
+                "TB_Usuario",
                 "TB_Movimento.IDUsuario",
                 "TB_Usuario.IDUsuario"
             )
@@ -130,7 +130,7 @@ const getByUserId = async (id) => {
             ])
             .table("TB_Movimento")
             .innerJoin(
-                "TB_Movimento",
+                "TB_Usuario",
                 "TB_Movimento.IDUsuario",
                 "TB_Usuario.IDUsuario"
             )
@@ -184,12 +184,15 @@ const getAll = async () => {
             ])
             .table("TB_Movimento")
             .innerJoin(
-                "TB_Movimento",
+                "TB_Usuario",
                 "TB_Movimento.IDUsuario",
                 "TB_Usuario.IDUsuario"
             )
-            .innerJoin("TB_Perfil", "TB_Perfil.IDPerfil", "TB_Usuario.IDPerfil")
-            .where("TB_Movimento.IDMovimento", id);
+            .innerJoin(
+                "TB_Perfil",
+                "TB_Perfil.IDPerfil",
+                "TB_Usuario.IDPerfil"
+            );
 
         if (!modelSaves) {
             return null;

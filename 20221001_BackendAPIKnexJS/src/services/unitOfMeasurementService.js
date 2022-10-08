@@ -7,7 +7,7 @@ const create = async (model) => {
     try {
         const { id, description } = model;
 
-        const modelExist = await unitOfMeasRepo.getByDescription(id);
+        const modelExist = await unitOfMeasRepo.getByDescription(description);
         if (modelExist) {
             logger.error(
                 "unitOfMeasumentService create - Unidade de medida já existe: " + description
@@ -91,7 +91,7 @@ const update = async (model) => {
             return buildResult(false, "Unidade de medida não encontrada");
         }
 
-        const modelNameExist = await prodRepo.getByDescription(description);
+        const modelNameExist = await unitOfMeasRepo.getByDescription(description);
         if (modelNameExist && modelNameExist.id != id) {
             logger.error(
                 "unitOfMeasumentService update - Já existe uma unidade de medida com este nome no banco: " +
