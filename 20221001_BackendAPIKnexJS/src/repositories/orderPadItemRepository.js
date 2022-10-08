@@ -230,10 +230,93 @@ const getAll = async () => {
     }
 };
 
+const getAllByProductId = async (id) => {
+    try {
+        const modelSaves = await db
+            .select([
+                "TB_Item_Comanda.IDItemComanda as id",
+                "TB_Item_Comanda.Quantidade as quantity",
+                "TB_Item_Comanda.ValorUnitario as valueUnitary",
+                "TB_Comanda.IDComanda as orderPadId",
+                "TB_Comanda.DataComanda as orderPadDate",
+                "TB_Produto.IDProduto as productId",
+                "TB_Produto.Descricao as productDescription",
+                "TB_Produto.CodigoDeBarras as productBarCode",
+                "TB_Produto.Quantidade as productQuantity",
+                "TB_Produto.QuantidadeMinima as productMinQuantity",
+                "TB_Produto.ValorUnitario as productValueUnitary",
+                "TB_UnidadeMedida.IDUnidadeMedida as unitOfMeasurementId",
+                "TB_UnidadeMedida.Descricao as unitOfMeasurementDescription",
+                "TB_Category.IDCategoria as categoryId",
+                "TB_Category.Descricao as categoryDescription",
+            ])
+            .table("TB_Item_Comanda")
+            .innerJoin(
+                "TB_Comanda",
+                "TB_Comanda.IDComanda",
+                "TB_Item_Comanda.IDItemComanda"
+            )
+            .innerJoin(
+                "TB_Produto",
+                "TB_Produto.IDProduto",
+                "TB_Item_Comanda.IDProduto"
+            )
+            .innerJoin(
+                "TB_UnidadeMedida",
+                "TB_UnidadeMedida.IDUnidadeMedida",
+                "TB_Produto.IDUnidadeMedida"
+            )
+            .innerJoin(
+                "TB_Categoria",
+                "TB_Category.IDCategoria",
+                "TB_Produto.IDCategoria"
+            )
+            .where("TB_Item_Comanda.IDProduto", id);
+
+        if (!modelSaves) {
+            return null;
+        }
+
+        const modelReturn = modelSaves.map((item) => {
+            return {
+                id: item.id,
+                quantity: item.quantity,
+                valueUnitary: item.valueUnitary,
+                orderPad: {
+                    id: item.orderPadId,
+                    date: item.orderPadDate,
+                },
+                product: {
+                    id: item.productId,
+                    description: item.productDescription,
+                    barCode: item.productBarCode,
+                    quantity: item.productQuantity,
+                    minQuantity: item.productMinQuantity,
+                    valueUnitary: item.productValueUnitary,
+                },
+                unitOfMeasurement: {
+                    id: item.unitOfMeasurementId,
+                    description: item.unitOfMeasurementDescription,
+                },
+                category: {
+                    id: item.categoryId,
+                    description: item.categoryDescription,
+                },
+            };
+        });
+
+        return modelReturn;
+    } catch (err) {
+        logger.error("orderPadItemRepository getAll - Exceção: " + err);
+        return null;
+    }
+};
+
 module.exports = {
     create,
     update,
     remove,
     getById,
     getAll,
+    getAllByProductId,
 };
