@@ -1,4 +1,5 @@
 const roleRepo = require("../repositories/roleRepository");
+const userRepo = require("../repositories/userRepository");
 const { buildResult } = require("../helpers/staticMethods");
 const { logger } = require("../middlewares/logger");
 
@@ -46,7 +47,16 @@ const remove = async (id) => {
                 "roleService remove - Perfil não existe, id: " + id
             );
             return buildResult(false, "Perfil não encontrada");
+    }
+
+        const usersWithRole = await userRepo.getByRoleId(id);
+        if (usersWithRole && usersWithRole.length) {
+            logger.error(
+                "roleService remove - Perfil possui vínculo com usuários, id: " + id
+            );
+            return buildResult(false, `Perfil possui vínculo com ${usersWithRole.length} usuários`);
         }
+
         const resultDeleted = await roleRepo.remove(id);
         if (!resultDeleted.success) {
             logger.error(
@@ -75,6 +85,15 @@ const update = async (model) => {
                     description
             );
             return buildResult(false, "Perfil não encontrado");
+        }
+
+        const modelNameExist = await roleRepo.getByDescription(description);
+        if (modelNameExist && modelNameExist.id != id) {
+            logger.error(
+                "roleService update - Já existe um perfil com este nome no banco: " +
+                    description
+            );
+            return buildResult(false, "Já existe um perfil com este nome no banco");
         }
 
         const modelEntity = {

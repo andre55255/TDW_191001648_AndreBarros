@@ -1,4 +1,5 @@
 const catRepo = require("../repositories/categoryRepository");
+const prodRepo = require("../repositories/productRepository");
 const { buildResult } = require("../helpers/staticMethods");
 const { logger } = require("../middlewares/logger");
 
@@ -47,6 +48,19 @@ const remove = async (id) => {
             );
             return buildResult(false, "Categoria não encontrada");
         }
+
+        const productsWithCategory = await prodRepo.getProductsByCategoryId(id);
+        if (productsWithCategory && productsWithCategory.length) {
+            logger.error(
+                "categoryService remove - Categoria possui vinculo com um ou mais produtos, id: " +
+                    id
+            );
+            return buildResult(
+                false,
+                `Categoria possui vinculo com ${productsWithCategory.length} produtos`
+            );
+        }
+
         const resultDeleted = await catRepo.remove(id);
         if (!resultDeleted.success) {
             logger.error(
@@ -75,6 +89,15 @@ const update = async (model) => {
                     description
             );
             return buildResult(false, "Categoria não encontrada");
+        }
+
+        const categoryNameExist = await catRepo.getByDescription(description);
+        if (categoryNameExist && categoryNameExist.id != id) {
+            logger.error(
+                "categoryService update - Já existe uma categoria com este nome no banco: " +
+                    description
+            );
+            return buildResult(false, "Já existe uma categoria com este nome no banco");
         }
 
         const modelEntity = {

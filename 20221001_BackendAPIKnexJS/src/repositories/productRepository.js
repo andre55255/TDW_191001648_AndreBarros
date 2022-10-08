@@ -111,6 +111,122 @@ const getById = async (id) => {
     }
 };
 
+const getProductsByCategoryId = async (id) => {
+    try {
+        const modelSaves = await db
+            .select([
+                "TB_Produtos.IDProduto as id",
+                "TB_Produtos.Descricao as description",
+                "TB_Produtos.CodigoDeBarras as barCode",
+                "TB_Produtos.Quantidade as quantity",
+                "TB_Produtos.QuantidadeMinima as minQuantity",
+                "TB_Produtos.ValorUnitario as valueUnitary",
+                "TB_Categoria.IDCategoria as categoryId",
+                "TB_Categoria.Descricao as categoryDescription",
+                "TB_UnidadeMedida.IDUnidadeMedida as unitOfMeasurementId",
+                "TB_UnidadeMedida.Descricao as unitOfMeasurementDescription",
+            ])
+            .table("TB_Produtos")
+            .innerJoin(
+                "TB_Categoria",
+                "TB_Categoria.IDCategoria",
+                "TB_Produtos.IDCategoria"
+            )
+            .innerJoin(
+                "TB_UnidadeMedida",
+                "TB_UnidadeMedida.IDUnidadeMedida",
+                "TB_Produtos.IDUnidadeMedida"
+            )
+            .where("TB_Produtos.IDCategoria", id);
+
+        if (!modelSaves) {
+            return null;
+        }
+
+        const modelReturn = modelSaves.map((item) => {
+            return {
+                id: item.id,
+                description: item.description,
+                barCode: item.barCode,
+                quantity: item.quantity,
+                minQuantity: item.minQuantity,
+                valueUnitary: item.valueUnitary,
+                category: {
+                    id: item.categoryId,
+                    description: item.categoryDescription,
+                },
+                unitOfMeasurement: {
+                    id: item.unitOfMeasurementId,
+                    description: item.unitOfMeasurementDescription,
+                },
+            };
+        });
+
+        return modelReturn;
+    } catch (err) {
+        logger.error("productRepository getProductsByCategoryId - Exceção: " + err);
+        return null;
+    }
+}
+
+const getProductsByUnitOfMeasurementId = async (id) => {
+    try {
+        const modelSaves = await db
+            .select([
+                "TB_Produtos.IDProduto as id",
+                "TB_Produtos.Descricao as description",
+                "TB_Produtos.CodigoDeBarras as barCode",
+                "TB_Produtos.Quantidade as quantity",
+                "TB_Produtos.QuantidadeMinima as minQuantity",
+                "TB_Produtos.ValorUnitario as valueUnitary",
+                "TB_Categoria.IDCategoria as categoryId",
+                "TB_Categoria.Descricao as categoryDescription",
+                "TB_UnidadeMedida.IDUnidadeMedida as unitOfMeasurementId",
+                "TB_UnidadeMedida.Descricao as unitOfMeasurementDescription",
+            ])
+            .table("TB_Produtos")
+            .innerJoin(
+                "TB_Categoria",
+                "TB_Categoria.IDCategoria",
+                "TB_Produtos.IDCategoria"
+            )
+            .innerJoin(
+                "TB_UnidadeMedida",
+                "TB_UnidadeMedida.IDUnidadeMedida",
+                "TB_Produtos.IDUnidadeMedida"
+            )
+            .where("TB_Produtos.IDUnidadeMedida", id);
+
+        if (!modelSaves) {
+            return null;
+        }
+
+        const modelReturn = modelSaves.map((item) => {
+            return {
+                id: item.id,
+                description: item.description,
+                barCode: item.barCode,
+                quantity: item.quantity,
+                minQuantity: item.minQuantity,
+                valueUnitary: item.valueUnitary,
+                category: {
+                    id: item.categoryId,
+                    description: item.categoryDescription,
+                },
+                unitOfMeasurement: {
+                    id: item.unitOfMeasurementId,
+                    description: item.unitOfMeasurementDescription,
+                },
+            };
+        });
+
+        return modelReturn;
+    } catch (err) {
+        logger.error("productRepository getProductsByUnitOfMeasurementId - Exceção: " + err);
+        return null;
+    }
+}
+
 const getAll = async () => {
     try {
         const modelSaves = await db
@@ -174,5 +290,7 @@ module.exports = {
     update,
     remove,
     getById,
+    getProductsByCategoryId,
+    getProductsByUnitOfMeasurementId,
     getAll,
 };

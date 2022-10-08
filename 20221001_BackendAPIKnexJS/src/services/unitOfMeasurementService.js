@@ -1,4 +1,5 @@
 const unitOfMeasRepo = require("../repositories/unitOfMeasurementRepository");
+const prodRepo = require("../repositories/productRepository");
 const { buildResult } = require("../helpers/staticMethods");
 const { logger } = require("../middlewares/logger");
 
@@ -47,6 +48,19 @@ const remove = async (id) => {
             );
             return buildResult(false, "Unidade de medida não encontrada");
         }
+
+        const productsWithUnit = await prodRepo.getProductsByUnitOfMeasurementId(id);
+        if (productsWithUnit && productsWithUnit.length) {
+            logger.error(
+                "unitOfMeasumentService remove - Unidade de medida possui vinculo com um ou mais produtos, id: " +
+                    id
+            );
+            return buildResult(
+                false,
+                `Unidade de medida possui vinculo com ${productsWithUnit.length} produtos`
+            );
+        }
+
         const resultDeleted = await unitOfMeasRepo.remove(id);
         if (!resultDeleted.success) {
             logger.error(
@@ -75,6 +89,15 @@ const update = async (model) => {
                     description
             );
             return buildResult(false, "Unidade de medida não encontrada");
+        }
+
+        const modelNameExist = await prodRepo.getByDescription(description);
+        if (modelNameExist && modelNameExist.id != id) {
+            logger.error(
+                "unitOfMeasumentService update - Já existe uma unidade de medida com este nome no banco: " +
+                    description
+            );
+            return buildResult(false, "Já existe uma unidade de medida com este nome no banco");
         }
 
         const modelEntity = {

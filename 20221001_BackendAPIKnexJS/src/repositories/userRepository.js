@@ -56,6 +56,33 @@ const getById = async (id) => {
     }
 };
 
+const getByRoleId = async (id) => {
+    try {
+        const userSaves = await db
+            .select([
+                "TB_Usuario.IDUsuario as id",
+                "TB_Usuario.Login as login",
+                "TB_Usuario.Nome as name",
+                //"TB_Usuario.Senha as password",
+                "TB_Usuario.Status as status",
+                "TB_Usuario.IDPerfil as roleId",
+                "TB_Perfil.Descricao as roleName",
+            ])
+            .table("TB_Usuario")
+            .innerJoin("TB_Perfil", "TB_Perfil.IDPerfil", "TB_Usuario.IDPerfil")
+            .where("TB_Usuario.IDPerfil", id);
+
+        if (!userSaves) {
+            return null;
+        }
+
+        return userSaves;
+    } catch (err) {
+        logger.error("userRepository getByRoleId - Exceção: " + err);
+        return null;
+    }
+}
+
 const getAll = async () => {
     try {
         const userSaves = await db
@@ -137,6 +164,7 @@ const remove = async (id) => {
 module.exports = {
     getById,
     getByLogin,
+    getByRoleId,
     getAll,
     create,
     update,

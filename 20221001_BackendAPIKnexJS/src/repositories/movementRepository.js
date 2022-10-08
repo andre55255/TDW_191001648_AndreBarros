@@ -112,6 +112,60 @@ const getById = async (id) => {
     }
 };
 
+const getByUserId = async (id) => {
+    try {
+        const modelSave = await db
+            .select([
+                "TB_Movimento.IDMovimento as id",
+                "TB_Movimento.Descricao as description",
+                "TB_Movimento.Tipo as type",
+                "TB_Movimento.DataMovimento as date",
+                "TB_Movimento.Valor as totalValue",
+                "TB_Usuario.IDUsuario as userId",
+                "TB_Usuario.Login as userLogin",
+                "TB_Usuario.Nome as userName",
+                "TB_Usuario.Status as userStatus",
+                "TB_Perfil.IDPerfil as roleId",
+                "TB_Perfil.Descricao as roleName",
+            ])
+            .table("TB_Movimento")
+            .innerJoin(
+                "TB_Movimento",
+                "TB_Movimento.IDUsuario",
+                "TB_Usuario.IDUsuario"
+            )
+            .innerJoin("TB_Perfil", "TB_Perfil.IDPerfil", "TB_Usuario.IDPerfil")
+            .where("TB_Movimento.IDUsuario", id);
+
+        if (!modelSave) {
+            return null;
+        }
+
+        const modelReturn = {
+            id: modelSave[0].id,
+            description: modelSave[0].description,
+            type: modelSave[0].type,
+            date: modelSave[0].date,
+            totalValue: modelSave[0].totalValue,
+            user: {
+                id: modelSave[0].userId,
+                login: modelSave[0].userLogin,
+                name: modelSave[0].userName,
+                status: modelSave[0].userStatus,
+                role: {
+                    id: modelSave[0].roleId,
+                    name: modelSave[0].roleName,
+                },
+            },
+        };
+
+        return modelReturn;
+    } catch (err) {
+        logger.error("movementRepository getByUserId - Exceção: " + err);
+        return null;
+    }
+};
+
 const getAll = async () => {
     try {
         const modelSaves = await db
@@ -173,5 +227,6 @@ module.exports = {
     update,
     remove,
     getById,
+    getByUserId,
     getAll,
 };
