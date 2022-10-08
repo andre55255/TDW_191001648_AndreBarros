@@ -2,27 +2,6 @@ const { db } = require("../domain/database");
 const { logger } = require("../middlewares/logger");
 const { buildResult } = require("../helpers/staticMethods");
 
-const getRoleById = async (roleId) => {
-    try {
-        const roleSave = await db
-            .select([
-                "TB_Perfil.IDPerfil as id",
-                "TB_Perfil.Descricao as description",
-            ])
-            .table("TB_Perfil")
-            .where("TB_Perfil.IDPerfil", roleId);
-
-        if (!roleSave) {
-            return null;
-        }
-
-        return roleSave[0];
-    } catch (err) {
-        logger.error("userRepository getRoleById - Exceção: " + err);
-        return null;
-    }
-};
-
 const getByLogin = async (login) => {
     try {
         const userSave = await db
@@ -156,7 +135,6 @@ const remove = async (id) => {
 }
 
 module.exports = {
-    getRoleById,
     getById,
     getByLogin,
     getAll,

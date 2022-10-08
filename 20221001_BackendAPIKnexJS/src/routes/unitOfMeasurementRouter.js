@@ -8,7 +8,7 @@ router.get("/", unitOfMeasController.getAll);
 
 router.get("/:id", validationId, validationRequest, unitOfMeasController.getById);
 
-router.post("/", validationCategory, validationRequest, unitOfMeasController.create);
+router.post("/", validationUnitOfMeasurement, validationRequest, unitOfMeasController.create);
 
 router.put("/:id", validationId, validationUnitOfMeasurement, validationRequest, unitOfMeasController.update);
 

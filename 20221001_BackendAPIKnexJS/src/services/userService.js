@@ -1,12 +1,13 @@
 const { hash } = require("bcrypt");
 const userRepo = require("../repositories/userRepository");
+const roleRepo = require("../repositories/roleRepository");
 const { buildResult } = require("../helpers/staticMethods");
 const { logger } = require("../middlewares/logger");
 
 const create = async (user) => {
     try {
         const { login, name, password, roleId } = user;
-        const roleExist = await userRepo.getRoleById(roleId);
+        const roleExist = await roleRepo.getById(roleId);
         if (!roleExist) {
             logger.warn(
                 "userService create - Perfil não encontrado, usuario: " + roleId
