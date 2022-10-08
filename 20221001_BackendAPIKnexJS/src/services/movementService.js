@@ -5,7 +5,7 @@ const { logger } = require("../middlewares/logger");
 
 const create = async (model) => {
     try {
-        const { description, type, date, value, userId } = model;
+        const { description, date, value, userId } = model;
 
         const userExist = await userRepo.getById(userId);
         if (!userExist) {
@@ -18,7 +18,7 @@ const create = async (model) => {
 
         const modelEntity = {
             Descricao: description,
-            Tipo: type,
+            Tipo: value <= 0 ? "Saída" : "Entrada",
             DataMovimento: date,
             Valor: value,
             IDUsuario: userId,

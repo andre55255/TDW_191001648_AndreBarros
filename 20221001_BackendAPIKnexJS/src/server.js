@@ -12,12 +12,16 @@ app.use(express.urlencoded({ extended: true }));
 // Routes
 const accRouter = require("./routes/accountRouter");
 const catRouter = require("./routes/categoryRouter");
+const movementRouter = require("./routes/movementRouter");
+const productRouter = require("./routes/productRouter");
 const roleRouter = require("./routes/roleRouter");
 const unitOfMeasRouter = require("./routes/unitOfMeasurementRouter");
 const userRouter = require("./routes/userRouter");
 
 app.use("/account", accRouter);
 app.use("/category", catRouter);
+app.use("/movement", movementRouter);
+app.use("/product", productRouter);
 app.use("/role", roleRouter);
 app.use("/unitOfMeasument", unitOfMeasRouter);
 app.use("/user", userRouter);
