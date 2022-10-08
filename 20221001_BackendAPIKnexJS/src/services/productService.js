@@ -55,11 +55,11 @@ const create = async (model) => {
             );
             return buildResult(false, "Falha ao criar Produto");
         }
-        logger.error(
+        logger.info(
             "productService create - Produto criado com sucesso: " + description
         );
 
-        const modelSave = await prod.getById(resultCreated.object.id);
+        const modelSave = await prodRepo.getById(resultCreated.object.id);
         return buildResult(true, "Produto criado com sucesso", modelSave);
     } catch (err) {
         logger.error("productService create - Exceção: " + err);
@@ -162,12 +162,12 @@ const update = async (model) => {
             );
             return buildResult(false, "Falha ao editar Produto");
         }
-        logger.error(
+        logger.info(
             "productService update - Produto editado com sucesso: " +
                 description
         );
 
-        const modelSave = await prod.getById(resultCreated.object.id);
+        const modelSave = await prodRepo.getById(id);
         return buildResult(true, "Produto editado com sucesso", modelSave);
     } catch (err) {
         logger.error("productService update - Exceção: " + err);

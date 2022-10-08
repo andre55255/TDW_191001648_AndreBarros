@@ -78,37 +78,37 @@ const getById = async (id) => {
                 "TB_Item_Comanda.ValorUnitario as valueUnitary",
                 "TB_Comanda.IDComanda as orderPadId",
                 "TB_Comanda.DataComanda as orderPadDate",
-                "TB_Produto.IDProduto as productId",
-                "TB_Produto.Descricao as productDescription",
-                "TB_Produto.CodigoDeBarras as productBarCode",
-                "TB_Produto.Quantidade as productQuantity",
-                "TB_Produto.QuantidadeMinima as productMinQuantity",
-                "TB_Produto.ValorUnitario as productValueUnitary",
+                "TB_Produtos.IDProduto as productId",
+                "TB_Produtos.Descricao as productDescription",
+                "TB_Produtos.CodigoDeBarras as productBarCode",
+                "TB_Produtos.Quantidade as productQuantity",
+                "TB_Produtos.QuantidadeMinima as productMinQuantity",
+                "TB_Produtos.ValorUnitario as productValueUnitary",
                 "TB_UnidadeMedida.IDUnidadeMedida as unitOfMeasurementId",
                 "TB_UnidadeMedida.Descricao as unitOfMeasurementDescription",
-                "TB_Category.IDCategoria as categoryId",
-                "TB_Category.Descricao as categoryDescription",
+                "TB_Categoria.IDCategoria as categoryId",
+                "TB_Categoria.Descricao as categoryDescription",
             ])
             .table("TB_Item_Comanda")
             .innerJoin(
                 "TB_Comanda",
                 "TB_Comanda.IDComanda",
-                "TB_Item_Comanda.IDItemComanda"
+                "TB_Item_Comanda.IDComanda"
             )
             .innerJoin(
-                "TB_Produto",
-                "TB_Produto.IDProduto",
+                "TB_Produtos",
+                "TB_Produtos.IDProduto",
                 "TB_Item_Comanda.IDProduto"
             )
             .innerJoin(
                 "TB_UnidadeMedida",
                 "TB_UnidadeMedida.IDUnidadeMedida",
-                "TB_Produto.IDUnidadeMedida"
+                "TB_Produtos.IDUnidadeMedida"
             )
             .innerJoin(
                 "TB_Categoria",
-                "TB_Category.IDCategoria",
-                "TB_Produto.IDCategoria"
+                "TB_Categoria.IDCategoria",
+                "TB_Produtos.IDCategoria"
             )
             .where("TB_Item_Comanda.IDItemComanda", id);
 
@@ -158,37 +158,37 @@ const getAll = async () => {
                 "TB_Item_Comanda.ValorUnitario as valueUnitary",
                 "TB_Comanda.IDComanda as orderPadId",
                 "TB_Comanda.DataComanda as orderPadDate",
-                "TB_Produto.IDProduto as productId",
-                "TB_Produto.Descricao as productDescription",
-                "TB_Produto.CodigoDeBarras as productBarCode",
-                "TB_Produto.Quantidade as productQuantity",
-                "TB_Produto.QuantidadeMinima as productMinQuantity",
-                "TB_Produto.ValorUnitario as productValueUnitary",
+                "TB_Produtos.IDProduto as productId",
+                "TB_Produtos.Descricao as productDescription",
+                "TB_Produtos.CodigoDeBarras as productBarCode",
+                "TB_Produtos.Quantidade as productQuantity",
+                "TB_Produtos.QuantidadeMinima as productMinQuantity",
+                "TB_Produtos.ValorUnitario as productValueUnitary",
                 "TB_UnidadeMedida.IDUnidadeMedida as unitOfMeasurementId",
                 "TB_UnidadeMedida.Descricao as unitOfMeasurementDescription",
-                "TB_Category.IDCategoria as categoryId",
-                "TB_Category.Descricao as categoryDescription",
+                "TB_Categoria.IDCategoria as categoryId",
+                "TB_Categoria.Descricao as categoryDescription",
             ])
             .table("TB_Item_Comanda")
             .innerJoin(
                 "TB_Comanda",
                 "TB_Comanda.IDComanda",
-                "TB_Item_Comanda.IDItemComanda"
+                "TB_Item_Comanda.IDComanda"
             )
             .innerJoin(
-                "TB_Produto",
-                "TB_Produto.IDProduto",
+                "TB_Produtos",
+                "TB_Produtos.IDProduto",
                 "TB_Item_Comanda.IDProduto"
             )
             .innerJoin(
                 "TB_UnidadeMedida",
                 "TB_UnidadeMedida.IDUnidadeMedida",
-                "TB_Produto.IDUnidadeMedida"
+                "TB_Produtos.IDUnidadeMedida"
             )
             .innerJoin(
                 "TB_Categoria",
-                "TB_Category.IDCategoria",
-                "TB_Produto.IDCategoria"
+                "TB_Categoria.IDCategoria",
+                "TB_Produtos.IDCategoria"
             );
 
         if (!modelSaves) {
@@ -239,37 +239,37 @@ const getAllByProductId = async (id) => {
                 "TB_Item_Comanda.ValorUnitario as valueUnitary",
                 "TB_Comanda.IDComanda as orderPadId",
                 "TB_Comanda.DataComanda as orderPadDate",
-                "TB_Produto.IDProduto as productId",
-                "TB_Produto.Descricao as productDescription",
-                "TB_Produto.CodigoDeBarras as productBarCode",
-                "TB_Produto.Quantidade as productQuantity",
-                "TB_Produto.QuantidadeMinima as productMinQuantity",
-                "TB_Produto.ValorUnitario as productValueUnitary",
+                "TB_Produtos.IDProduto as productId",
+                "TB_Produtos.Descricao as productDescription",
+                "TB_Produtos.CodigoDeBarras as productBarCode",
+                "TB_Produtos.Quantidade as productQuantity",
+                "TB_Produtos.QuantidadeMinima as productMinQuantity",
+                "TB_Produtos.ValorUnitario as productValueUnitary",
                 "TB_UnidadeMedida.IDUnidadeMedida as unitOfMeasurementId",
                 "TB_UnidadeMedida.Descricao as unitOfMeasurementDescription",
-                "TB_Category.IDCategoria as categoryId",
-                "TB_Category.Descricao as categoryDescription",
+                "TB_Categoria.IDCategoria as categoryId",
+                "TB_Categoria.Descricao as categoryDescription",
             ])
             .table("TB_Item_Comanda")
             .innerJoin(
                 "TB_Comanda",
                 "TB_Comanda.IDComanda",
-                "TB_Item_Comanda.IDItemComanda"
+                "TB_Item_Comanda.IDComanda"
             )
             .innerJoin(
-                "TB_Produto",
-                "TB_Produto.IDProduto",
+                "TB_Produtos",
+                "TB_Produtos.IDProduto",
                 "TB_Item_Comanda.IDProduto"
             )
             .innerJoin(
                 "TB_UnidadeMedida",
                 "TB_UnidadeMedida.IDUnidadeMedida",
-                "TB_Produto.IDUnidadeMedida"
+                "TB_Produtos.IDUnidadeMedida"
             )
             .innerJoin(
                 "TB_Categoria",
-                "TB_Category.IDCategoria",
-                "TB_Produto.IDCategoria"
+                "TB_Categoria.IDCategoria",
+                "TB_Produtos.IDCategoria"
             )
             .where("TB_Item_Comanda.IDProduto", id);
 

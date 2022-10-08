@@ -271,7 +271,6 @@ const getAll = async () => {
                 "TB_UnidadeMedida.IDUnidadeMedida",
                 "TB_Produtos.IDUnidadeMedida"
             )
-            .where("TB_Produtos.IDProduto", id);
 
         if (!modelSaves) {
             return null;
