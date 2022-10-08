@@ -10,4 +10,8 @@ router.get("/:id", validationId, validationRequest, userController.getById);
 
 router.get("/", userController.getAll);
 
+router.put("/:id", validationId, validationSave, validationRequest, userController.update);
+
+router.delete("/:id", validationId, validationRequest, userController.remove);
+
 module.exports = router;

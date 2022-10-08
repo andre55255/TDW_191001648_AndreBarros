@@ -90,8 +90,59 @@ const getAll = async (req, res) => {
     }
 };
 
+const update = async (req, res) => {
+    try {
+        logger.info("Acessado PUT /user/:id");
+        const { id } = req.params;
+        const modelSave = req.body;
+        modelSave.id = id;
+
+        const result = await userService.update(modelSave);
+        if (!result || !result.success) {
+            return res
+                .status(400)
+                .json(buildApiResponse(false, 400, result.message));
+        }
+        return res
+            .status(200)
+            .json(buildApiResponse(true, 200, result.message, result.object));
+    } catch (err) {
+        logger.error("userController update - Exceção: " + err);
+        return res
+            .status(500)
+            .json(
+                buildApiResponse(
+                    false,
+                    500,
+                    "Falha ao editar usuário"
+                )
+            );
+    }
+};
+
+const remove = async (req, res) => {
+    try {
+        logger.info("Acessado DELETE /user/:id");
+        const { id } = req.params;
+        const result = await userService.remove(id);
+        if (!result || !result.success) {
+            return res
+                .status(400)
+                .json(buildApiResponse(false, 400, result.message));
+        }
+        return res.status(200).json(buildApiResponse(true, 200, "Usuário deletado com sucesso"));
+    } catch (err) {
+        logger.error("userController remove - Exceção: " + err);
+        return res
+            .status(500)
+            .json(buildApiResponse(false, 500, "Falha ao remover usuário"));
+    }
+}
+
 module.exports = {
     create,
     getById,
     getAll,
+    update,
+    remove
 };

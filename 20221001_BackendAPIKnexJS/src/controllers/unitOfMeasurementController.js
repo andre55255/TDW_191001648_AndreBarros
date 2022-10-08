@@ -100,6 +100,7 @@ const getAll = async (req, res) => {
 
 const update = async (req, res) => {
     try {
+        logger.info("Acessado PUT /unitOfMeasurement/:id");
         const { id } = req.params;
         const modelSave = req.body;
         modelSave.id = id;
@@ -123,6 +124,7 @@ const update = async (req, res) => {
 
 const remove = async (req, res) => {
     try {
+        logger.info("Acessado DELETE /unitOfMeasurement/:id");
         const { id } = req.params;
         const result = await unitOfMeasService.remove(id);
         if (!result || !result.success) {
