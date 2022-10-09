@@ -26,6 +26,30 @@ const create = async (req, res) => {
     }
 };
 
+const createFull = async (req, res) => {
+    try {
+        logger.info("Acessado POST /orderPad/withItems");
+        const model = req.body;
+
+        const result = await orderPad.createFull(model);
+        if (!result || !result.success) {
+            return res
+                .status(400)
+                .json(
+                    buildApiResponse(false, 400, result.message, result.object)
+                );
+        }
+        return res
+            .status(201)
+            .json(buildApiResponse(true, 201, result.message, result.object));
+    } catch (err) {
+        logger.error("orderPadController createFull - Exceção: " + err);
+        return res
+            .status(500)
+            .json(buildApiResponse(false, 500, "Falha inesperada ao criar comanda"));
+    }
+};
+
 const getById = async (req, res) => {
     try {
         logger.info("Acessado GET /orderPad/:id");
@@ -146,5 +170,6 @@ module.exports = {
     getById,
     getAll,
     update,
-    remove
+    remove,
+    createFull
 }

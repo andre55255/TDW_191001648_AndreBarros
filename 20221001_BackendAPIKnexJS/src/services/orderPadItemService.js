@@ -8,7 +8,7 @@ const create = async (model) => {
     try {
         const { quantity, orderPadId, productId } = model;
 
-        const orderPadExist = await orderPad.getById(orderPadId);
+        const orderPadExist = await orderPad.getByIdNoItems(orderPadId);
         if (!orderPadExist) {
             logger.error(
                 "orderPadItemService create - Comanda não encontrada para vincular, id: " +
@@ -68,7 +68,7 @@ const create = async (model) => {
             return resultUpdatedQuantityProd;
         }
 
-        logger.error(
+        logger.info(
             "orderPadItemService create - Item de comanda criado com sucesso: " +
                 resultCreated.object.id
         );
@@ -202,12 +202,12 @@ const update = async (model) => {
             return resultUpdatedQuantityProd;
         }
         
-        logger.error(
+        logger.info(
             "orderPadItemService update - Item de comanda editado com sucesso: " +
                 id
         );
 
-        const modelSave = await orderPadItem.getById(result.object.id);
+        const modelSave = await orderPadItem.getById(id);
         return buildResult(
             true,
             "Item de comanda editado com sucesso",

@@ -16,4 +16,12 @@ const validationOrderPad = [
         .withMessage("Data da comanda não pode ser maior que a data atual")
 ];
 
-module.exports = { validationOrderPad };
+const validationOrderPadWithItems = [
+    check("items")
+        .notEmpty()
+        .withMessage("Itens não informados")
+        .isArray({ min: 1 })
+        .withMessage("Informe os itens corretamente")
+];
+
+module.exports = { validationOrderPad, validationOrderPadWithItems };
