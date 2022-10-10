@@ -16,7 +16,7 @@ const login = async (req, res) => {
                         false,
                         400,
                         resultLogin.message,
-                        result.object
+                        resultLogin.object
                     )
                 );
         }

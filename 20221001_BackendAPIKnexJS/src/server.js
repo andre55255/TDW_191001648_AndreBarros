@@ -9,6 +9,10 @@ const PORT_SERVER = process.env.PORT_SERVER || 8081;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Config Cors
+const cors = require("cors");
+app.use(cors());
+
 // Routes
 const accRouter = require("./routes/accountRouter");
 const catRouter = require("./routes/categoryRouter");

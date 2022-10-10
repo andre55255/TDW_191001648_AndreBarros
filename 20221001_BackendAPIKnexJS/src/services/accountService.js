@@ -10,12 +10,12 @@ const login = async ({ login, password }) => {
         const userSave = await userRepo.getByLogin(login);
         if (!userSave) {
             logger.warn("accountService login - Usuário não encontrado, usuario: " + login);
-            buildResult(false, "Usuário não encontrado");
+            return buildResult(false, "Usuário não encontrado");
         }
         const isPasswordCorrect = await compare(password, userSave.password);
         if (!isPasswordCorrect) {
-            logger.warn("accountService login - Senha incorreta, usuario: " + email);
-            buildResult(false, "Senha incorreta");
+            logger.warn("accountService login - Senha incorreta, usuario: " + login);
+            return buildResult(false, "Senha incorreta");
         }
         const payloadJwt = {
             idUser: userSave.id,

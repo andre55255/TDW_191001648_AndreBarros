@@ -1,0 +1,28 @@
+.login {
+    display: flex;
+    justify-content: center;
+    padding-top: 3rem;
+
+    background-color: #0e3441;
+    width: 100vw;
+    height: 100vh;
+}
+
+.card-login {
+    width: 50vw;
+    height: 50vh;
+    margin-top: 2rem;
+}
+
+@media screen and (max-width: 768px) {
+    .card-login {
+        width: 80vw;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .card-login {
+        width: 90vw;
+        height: 80vh;
+    }
+}
