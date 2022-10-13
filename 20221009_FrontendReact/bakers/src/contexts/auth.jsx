@@ -1,13 +1,12 @@
 import React, { useState } from "react";
-import { useCookies } from "react-cookie";
 import { nameCookieAccessToken } from "../helpers/constants";
+import { getCookie } from "../helpers/methods";
 
 export const authContext = React.createContext({});
 
 export const AuthProvider = ({ children }) => {
-    const [cookies, setCookies] = useCookies([nameCookieAccessToken]);
     const [auth, setAuth] = useState({
-        [nameCookieAccessToken]: "" || cookies.accessToken,
+        [nameCookieAccessToken]: "" || getCookie(nameCookieAccessToken),
     });
 
     return (

@@ -1,17 +1,14 @@
-import React, { useContext } from "react";
+import React from "react";
 import "./Login.css";
 import { Form, Input, Card, Button, message } from "antd";
 import { yupRuleValidator } from "../../validations/login/loginSchema";
-import { signIn } from "../../services/login/login";
-import { authContext } from "../../contexts/auth";
+import { signIn } from "../../services/account/login";
 import { nameCookieAccessToken } from "../../helpers/constants";
-import { useCookies } from "react-cookie";
+import { setCookie } from "../../helpers/methods";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
     const navigate = useNavigate();
-    const { setAuth } = useContext(authContext);
-    const [cookies, setCookies] = useCookies([nameCookieAccessToken]);
     const [form] = Form.useForm();
 
     const handleSubmit = async () => {
@@ -20,10 +17,7 @@ export default function Login() {
             if (!resultSignIn) {
                 return;
             }
-            setAuth({
-                [nameCookieAccessToken]: resultSignIn.accessToken
-            });
-            setCookies(nameCookieAccessToken, resultSignIn.accessToken);
+            setCookie(nameCookieAccessToken, resultSignIn.accessToken, resultSignIn.expiresIn);
             message.success("Login efetuado com sucesso");
             navigate("/Home");
         } catch (err) {

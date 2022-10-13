@@ -4,6 +4,7 @@ const { buildResult } = require("../helpers/staticMethods");
 const { compare } = require("bcrypt");
 const userRepo = require("../repositories/userRepository");
 const { sign } = require("jsonwebtoken");
+const moment = require("moment");
 
 const login = async ({ login, password }) => {
     try {
@@ -31,7 +32,8 @@ const login = async ({ login, password }) => {
         const jwtToken = sign(payloadJwt, process.env.JWT_KEY, claims);
         return buildResult(true, "Login efetuado com sucesso", {
             user: userSave.name,
-            accessToken: jwtToken
+            accessToken: jwtToken,
+            expiresIn: moment().add(-3, "hour").add(authConfigJwt.expiresHr, "hour").toDate()
         });
     } catch (err) {
         logger.error("accountService login - Exceção: " + err);

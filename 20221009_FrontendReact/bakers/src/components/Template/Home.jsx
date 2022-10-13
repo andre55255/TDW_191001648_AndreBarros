@@ -1,24 +1,19 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { Layout, Menu } from "antd";
 import "./Home.css";
 import { HeartFilled, HomeOutlined, LogoutOutlined } from "@ant-design/icons";
-import { authContext } from "../../contexts/auth";
 import { useNavigate, Link } from "react-router-dom";
-import { useCookies } from "react-cookie";
+import { removeCookie } from "../../helpers/methods";
+import { nameCookieAccessToken } from "../../helpers/constants";
 
 const { Header, Content, Footer, Sider } = Layout;
 
 export default function Dashboard(props) {
     const [collapsed, setCollapsed] = useState(false);
     const navigate = useNavigate();
-    const { setAuth } = useContext(authContext);
-    const [cookies, setCookies] = useCookies(["accessToken"]);
 
     function exit() {
-        setCookies("accessToken", "");
-        setAuth({
-            accessToken: "",
-        });
+        removeCookie(nameCookieAccessToken);
         navigate("/");
     }
 

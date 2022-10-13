@@ -16,7 +16,8 @@ export const signIn = async (errors, values) => {
         }
         return {
             user: response.object.user,
-            accessToken: response.object.accessToken
+            accessToken: response.object.accessToken,
+            expiresIn: response.object.expiresIn
         };
     } catch (err) {
         message.error("Falha inesperada ao realizar login");

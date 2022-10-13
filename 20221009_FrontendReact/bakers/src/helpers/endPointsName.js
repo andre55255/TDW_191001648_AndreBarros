@@ -1,3 +1,4 @@
 export const endpoints = {
-    login: "/Account/Login"
+    login: "/account/login",
+    userInfo:"/account/userInfo"
 }
