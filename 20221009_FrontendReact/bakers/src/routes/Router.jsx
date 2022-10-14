@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 
 import Login from "../pages/Login/Login";
 import Home from "../pages/Home/Home";
+import User from "../pages/User/User";
 import NotFound from "../pages/NotFound/NotFound";
 
 const Router = (props) => {
@@ -12,7 +13,8 @@ const Router = (props) => {
             <Route path="/" element={<Login />} />
 
             {/* Private routes TODO */}
-            <Route path="/Home" element={<Home />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/user" element={<User />} />
 
             {/* Redirect NotFound */}
             <Route path="*" element={<NotFound />} />

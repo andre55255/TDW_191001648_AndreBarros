@@ -8,7 +8,6 @@ import { message } from "antd";
 export const getUserInfo = async () => {
     try {
         const response = await getRequest(endpoints.userInfo, buildAuthorization());
-        console.log(response);
         if (!response.success) {
             if (response.status === 401) {
                 message.error(response.message);
