@@ -1,20 +1,20 @@
 import React from "react";
+import { Button, Result } from "antd";
+import { useNavigate } from "react-router-dom";
 
 export default function NotFound() {
+    const navigation = useNavigate();
+
     return (
-        <div
-            style={{
-                width: "100vw",
-                height: "100vh",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-                backgroundColor: "#f0efef"
-            }}
-        >
-            <h1>ERROR 404 - NOT FOUND</h1>
-            <h3>Página não encontrada :'(</h3>
-        </div>
+        <Result
+            status="404"
+            title="Ops"
+            subTitle="Página não encontrada, desculpe :("
+            extra={
+                <Button type="primary" onClick={() => navigation("/home")}>
+                    Voltar para Home
+                </Button>
+            }
+        />
     );
 }
