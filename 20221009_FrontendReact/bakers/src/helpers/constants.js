@@ -6,5 +6,15 @@ export const pathRoutes = {
     home: "/home",
     userList: "/user",
     userCreate: "/user/create",
-    userEdit: "/user/:id"
+    userEdit: "/user/:id",
+    productList: "/product",
+    productCreate: "/product/create",
+    productEdit: "/product/:id"
 };
+
+export const keyMenus = {
+    home: "1",
+    product: "2",
+    user: "3",
+    exit: "4"
+}

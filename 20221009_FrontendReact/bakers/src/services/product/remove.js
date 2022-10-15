@@ -8,10 +8,10 @@ import {
 import { deleteRequest } from "../api/remove";
 import { message } from "antd";
 
-export const removeUser = async (id) => {
+export const removeProduct = async (id) => {
     try {
         const response = await deleteRequest(
-            endpoints.user + "/" + id,
+            endpoints.product + "/" + id,
             buildAuthorization()
         );
         if (!response.success) {
@@ -23,12 +23,12 @@ export const removeUser = async (id) => {
                     unauthorized: true,
                 };
             }
-            message.error("Não é possível deletar este usuário, possui vínculos. Contate o admnistrador do sistema!");
+            message.error(response.message);
             return null;
         }
         return response.message;
     } catch (err) {
-        message.error("Falha ao remover usuário no banco");
+        message.error("Falha ao remover usuários no banco");
         return null;
     }
 };

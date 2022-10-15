@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { Layout, Menu, message, Avatar, Dropdown, Spin } from "antd";
 import "./Home.css";
 import {
+    BarcodeOutlined,
     HeartFilled,
     HomeOutlined,
     LogoutOutlined,
@@ -10,6 +11,7 @@ import {
 import { useNavigate, Link } from "react-router-dom";
 import { removeLocalStorage } from "../../helpers/methods";
 import {
+    keyMenus,
     nameCookieAccessToken,
     nameCookieExpiresToken,
     pathRoutes,
@@ -96,14 +98,17 @@ export default function Dashboard(props) {
                         activeKey={props.keyActive}
                         selectedKeys={props.keyActive}
                     >
-                        <Menu.Item key="1" icon={<HomeOutlined />}>
+                        <Menu.Item key={keyMenus.home} icon={<HomeOutlined />}>
                             <Link to={pathRoutes.home}>Home</Link>
                         </Menu.Item>
-                        <Menu.Item key="2" icon={<UserOutlined />}>
+                        <Menu.Item key={keyMenus.product} icon={<BarcodeOutlined />}>
+                            <Link to={pathRoutes.productList}>Produtos</Link>
+                        </Menu.Item>
+                        <Menu.Item key={keyMenus.user} icon={<UserOutlined />}>
                             <Link to={pathRoutes.userList}>Usuários</Link>
                         </Menu.Item>
                         <Menu.Item
-                            key="3"
+                            key={keyMenus.exit}
                             icon={<LogoutOutlined />}
                             onClick={exit}
                         >

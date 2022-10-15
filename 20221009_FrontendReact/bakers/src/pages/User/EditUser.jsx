@@ -10,7 +10,7 @@ import { yupRuleValidator } from "../../validations/user/userSaveSchema";
 import { editUser } from "../../services/user/editUser";
 import TemplateSave from "../../components/Template/Save";
 import FormSave from "../../components/Form/User/User";
-import { pathRoutes } from "../../helpers/constants";
+import { keyMenus, pathRoutes } from "../../helpers/constants";
 
 export default function EditUser() {
     const [loading, setLoading] = useState(false);
@@ -65,7 +65,7 @@ export default function EditUser() {
 
     return (
         <TemplateSave
-            keyActive="2"
+            keyActive={keyMenus.user}
             loading={loading}
             title="Editar usuário"
         >

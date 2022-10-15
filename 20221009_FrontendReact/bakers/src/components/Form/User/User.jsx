@@ -6,8 +6,13 @@ import { getAllRoles } from "../../../services/role/getAllRoles";
 import { useNavigate } from "react-router-dom";
 import { pathRoutes } from "../../../helpers/constants";
 
-export default function User({ form, nameForm, handleSubmit, yupRuleValidator, setLoading }) {
-
+export default function User({
+    form,
+    nameForm,
+    handleSubmit,
+    yupRuleValidator,
+    setLoading,
+}) {
     const navigate = useNavigate();
     const [roles, setRoles] = useState([]);
 
@@ -17,7 +22,7 @@ export default function User({ form, nameForm, handleSubmit, yupRuleValidator, s
             const roles = await getAllRoles();
             if (roles == null) {
                 setLoading(false);
-                navigate("/");
+                navigate(pathRoutes.login);
                 return;
             }
             setRoles(roles);

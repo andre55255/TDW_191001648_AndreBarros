@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import "./CreateUser.css";
+import "./Create.css";
 import { Form, message } from "antd";
 import { useNavigate } from "react-router-dom";
-import { yupRuleValidator } from "../../validations/user/userSaveSchema";
-import { createUser } from "../../services/user/createUser";
-import TemplateSave from "../../components/Template/Save";
-import FormSave from "../../components/Form/User/User";
+import { createProduct } from "../../services/product/create";
 import { keyMenus, pathRoutes } from "../../helpers/constants";
+import TemplateSave from "../../components/Template/Save";
+import FormSave from "../../components/Form/Product/Product";
+import { yupRuleValidator } from "../../validations/product/productSaveSchema";
 
-export default function CreateUser() {
+export default function Create() {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const [form] = Form.useForm();
@@ -16,7 +16,7 @@ export default function CreateUser() {
     const handleSubmit = async () => {
         try {
             setLoading(true);
-            const result = await createUser(
+            const result = await createProduct(
                 form.getFieldsError(),
                 form.getFieldsValue()
             );
@@ -25,21 +25,21 @@ export default function CreateUser() {
                 return;
             }
             setLoading(false);
-            message.success("Usuário inserido com sucesso");
-            navigate(pathRoutes.userList);
+            message.success("Produto inserido com sucesso");
+            navigate(pathRoutes.productList);
         } catch (err) {
-            message.error("Falha inesperada ao salvar usuário");
+            message.error("Falha inesperada ao salvar produto");
             setLoading(false);
         }
     };
 
     return (
-        <TemplateSave keyActive={keyMenus.user} loading={loading} title="Criar usuário">
+        <TemplateSave keyActive={keyMenus.product} loading={loading} title="Criar produto">
             <FormSave
                 form={form}
                 handleSubmit={handleSubmit}
                 setLoading={setLoading}
-                nameForm="form_create_user"
+                nameForm="form_create_product"
                 yupRuleValidator={yupRuleValidator}
             />
         </TemplateSave>

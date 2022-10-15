@@ -5,7 +5,7 @@ import { getAllUsers } from "../../services/user/getAllUsers";
 import { removeUser } from "../../services/user/removeUser";
 import { useNavigate } from "react-router-dom";
 import ListCustom from "../../components/Template/List";
-import { pathRoutes } from "../../helpers/constants";
+import { keyMenus, pathRoutes } from "../../helpers/constants";
 
 export default function User() {
     const [loading, setLoading] = useState(false);
@@ -62,7 +62,7 @@ export default function User() {
 
     return (
         <ListCustom
-            keyActive="2"
+            keyActive={keyMenus.user}
             title="Usuários"
             pathPageCreate={pathRoutes.userCreate}
             pathPageEdit={pathRoutes.userEdit}
