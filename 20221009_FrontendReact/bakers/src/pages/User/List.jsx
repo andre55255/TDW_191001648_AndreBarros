@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from "react";
-import "./User.css";
-import Template from "../../components/Template/Home";
-import { Button, Col, Divider, Row, Space, Typography, Spin, message } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
+import "./List.css";
+import { message } from "antd";
 import { getAllUsers } from "../../services/user/getAllUsers";
 import { removeUser } from "../../services/user/removeUser";
 import { useNavigate } from "react-router-dom";
-import TableCustom from "../../components/Table/Table";
+import ListCustom from "../../components/Template/List";
+import { pathRoutes } from "../../helpers/constants";
 
 export default function User() {
-    const { Title } = Typography;
-
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const [users, setUsers] = useState([]);
@@ -39,7 +36,7 @@ export default function User() {
             Login: item.login,
             Nome: item.name,
             Perfil: item.roleName,
-            Acoes: item.id
+            Acoes: item.id,
         };
     });
 
@@ -52,7 +49,7 @@ export default function User() {
                 return;
             }
             message.success("Usuário deletado com sucesso");
-            
+
             const users = await getAllUsers();
             setUsers(users);
             setLoading(false);
@@ -61,41 +58,18 @@ export default function User() {
             message.error("Falha ao requisitar a deleção de usuário");
             setLoading(false);
         }
-    }
+    };
 
     return (
-        <Template keyActive="2">
-            <Row>
-                <Col span={24}>
-                    <Space align="center">
-                        <Title level={2}>Usuários</Title>
-                    </Space>
-                </Col>
-                <Divider />
-                <Col span={24}>
-                    <Space align="end">
-                        <Button
-                            type="primary"
-                            size="middle"
-                            icon={<PlusOutlined />}
-                            onClick={() =>  navigate("/user/create")}
-                        >
-                            Adicionar
-                        </Button>
-                    </Space>
-                </Col>
-            </Row>
-            <Row
-                style={{
-                    marginTop: ".5rem",
-                }}
-            >
-                <Col span={24}>
-                    <Spin spinning={loading}>
-                        <TableCustom columns={columns} data={data} handleDelete={handleDelete}/>
-                    </Spin>
-                </Col>
-            </Row>
-        </Template>
+        <ListCustom
+            keyActive="2"
+            title="Usuários"
+            pathPageCreate={pathRoutes.userCreate}
+            pathPageEdit={pathRoutes.userEdit}
+            loading={loading}
+            columnsTable={columns}
+            rowsTable={data}
+            handleDelete={handleDelete}
+        />
     );
 }

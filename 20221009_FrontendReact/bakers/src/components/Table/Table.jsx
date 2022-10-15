@@ -1,9 +1,9 @@
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined, InfoCircleOutlined } from "@ant-design/icons";
 import { Popconfirm, Space, Table } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function TableCustom({ columns, data, handleDelete }) {
+export default function TableCustom({ columns, data, pathBaseEdit, handleDelete }) {
     const columnsTable = columns.map((item) => {
         return {
             title: item,
@@ -15,8 +15,9 @@ export default function TableCustom({ columns, data, handleDelete }) {
                 ) : (
                     <>
                         <Space>
-                            <Link to={`/user/${text}`}>
+                            <Link to={pathBaseEdit.replace(":id", text)}>
                                 <EditOutlined
+                                    color="#dbd800"
                                     style={{
                                         fontSize: "1.2rem",
                                     }}
@@ -28,6 +29,7 @@ export default function TableCustom({ columns, data, handleDelete }) {
                                 onCancel={() => console.log("Não")}
                                 okText="Sim"
                                 cancelText="Não"
+                                icon={<InfoCircleOutlined style={{color: "#dc143c"}} />}
                             >
                                 <DeleteOutlined
                                     style={{
