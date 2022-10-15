@@ -10,6 +10,7 @@ import { yupRuleValidator } from "../../validations/user/userSaveSchema";
 import { editUser } from "../../services/user/editUser";
 import TemplateSave from "../../components/Template/Save";
 import FormSave from "../../components/Form/User/User";
+import { pathRoutes } from "../../helpers/constants";
 
 export default function EditUser() {
     const [loading, setLoading] = useState(false);
@@ -25,7 +26,7 @@ export default function EditUser() {
             const user = await getByIdUser(id);
             if (user == null) {
                 setLoading(false);
-                navigate("/user");
+                navigate(pathRoutes.userList);
                 return;
             }
             setUser(user);
@@ -55,7 +56,7 @@ export default function EditUser() {
             }
             setLoading(false);
             message.success("Usuário editado com sucesso");
-            navigate("/user");
+            navigate(pathRoutes.userList);
         } catch (err) {
             message.error("Falha inesperada ao salvar usuário");
             setLoading(false);

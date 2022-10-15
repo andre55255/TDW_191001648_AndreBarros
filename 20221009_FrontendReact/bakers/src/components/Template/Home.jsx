@@ -12,6 +12,7 @@ import { removeLocalStorage } from "../../helpers/methods";
 import {
     nameCookieAccessToken,
     nameCookieExpiresToken,
+    pathRoutes,
 } from "../../helpers/constants";
 import { getUserInfo } from "../../services/account/userInfo";
 import { userInfoContext } from "../../contexts/userInfo";
@@ -20,7 +21,7 @@ import { verifyLogged } from "../../helpers/verifyLogged";
 const { Header, Content, Footer, Sider } = Layout;
 
 export default function Dashboard(props) {
-    const [collapsed, setCollapsed] = useState(false);
+    const [collapsed, setCollapsed] = useState(true);
     const { userInfo, setUserInfo } = useContext(userInfoContext);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
@@ -31,7 +32,7 @@ export default function Dashboard(props) {
         if (!isLogged) {
             setLoading(false);
             message.error("Acesso negado, faça login");
-            navigate("/");
+            navigate(pathRoutes.login);
             return;
         }
 
@@ -42,7 +43,7 @@ export default function Dashboard(props) {
                 setLoading(false);
                 removeLocalStorage(nameCookieExpiresToken);
                 removeLocalStorage(nameCookieAccessToken);
-                navigate("/");
+                navigate(pathRoutes.login);
             }
 
             setUserInfo({
@@ -62,7 +63,7 @@ export default function Dashboard(props) {
     function exit() {
         removeLocalStorage(nameCookieExpiresToken);
         removeLocalStorage(nameCookieAccessToken);
-        navigate("/");
+        navigate(pathRoutes.login);
     }
 
     const menuHeader = (
@@ -96,10 +97,10 @@ export default function Dashboard(props) {
                         selectedKeys={props.keyActive}
                     >
                         <Menu.Item key="1" icon={<HomeOutlined />}>
-                            <Link to="/Home">Home</Link>
+                            <Link to={pathRoutes.home}>Home</Link>
                         </Menu.Item>
                         <Menu.Item key="2" icon={<UserOutlined />}>
-                            <Link to="/user">Usuários</Link>
+                            <Link to={pathRoutes.userList}>Usuários</Link>
                         </Menu.Item>
                         <Menu.Item
                             key="3"

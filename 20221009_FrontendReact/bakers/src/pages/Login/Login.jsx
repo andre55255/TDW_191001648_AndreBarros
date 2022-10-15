@@ -6,6 +6,7 @@ import { signIn } from "../../services/account/login";
 import {
     nameCookieAccessToken,
     nameCookieExpiresToken,
+    pathRoutes,
 } from "../../helpers/constants";
 import { setLocalStorage } from "../../helpers/methods";
 import { useNavigate } from "react-router-dom";
@@ -41,7 +42,7 @@ export default function Login() {
             }
             setLoading(false);
             message.success("Login efetuado com sucesso");
-            navigate("/Home");
+            navigate(pathRoutes.home);
         } catch (err) {
             message.error("Falha inesperada ao salvar token de acesso");
             setLoading(false);

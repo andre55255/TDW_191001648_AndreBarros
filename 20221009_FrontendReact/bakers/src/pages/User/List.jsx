@@ -18,7 +18,7 @@ export default function User() {
             const users = await getAllUsers();
             if (users == null) {
                 setLoading(false);
-                navigate("/");
+                navigate(pathRoutes.login);
                 return;
             }
             setUsers(users);

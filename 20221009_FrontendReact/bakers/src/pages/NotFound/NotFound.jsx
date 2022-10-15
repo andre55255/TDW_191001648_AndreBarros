@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Result } from "antd";
 import { useNavigate } from "react-router-dom";
+import { pathRoutes } from "../../helpers/constants";
 
 export default function NotFound() {
     const navigation = useNavigate();
@@ -11,7 +12,7 @@ export default function NotFound() {
             title="Ops"
             subTitle="Página não encontrada, desculpe :("
             extra={
-                <Button type="primary" onClick={() => navigation("/home")}>
+                <Button type="primary" onClick={() => navigation(pathRoutes.home)}>
                     Voltar para Home
                 </Button>
             }

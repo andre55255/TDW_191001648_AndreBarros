@@ -6,6 +6,7 @@ import { yupRuleValidator } from "../../validations/user/userSaveSchema";
 import { createUser } from "../../services/user/createUser";
 import TemplateSave from "../../components/Template/Save";
 import FormSave from "../../components/Form/User/User";
+import { pathRoutes } from "../../helpers/constants";
 
 export default function CreateUser() {
     const [loading, setLoading] = useState(false);
@@ -25,7 +26,7 @@ export default function CreateUser() {
             }
             setLoading(false);
             message.success("Usuário inserido com sucesso");
-            navigate("/user");
+            navigate(pathRoutes.userList);
         } catch (err) {
             message.error("Falha inesperada ao salvar usuário");
             setLoading(false);
