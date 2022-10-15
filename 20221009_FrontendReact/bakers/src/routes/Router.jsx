@@ -10,6 +10,14 @@ import ProductList from "../pages/Product/List";
 import ProductCreate from "../pages/Product/Create";
 import ProductEdit from "../pages/Product/Edit";
 
+import CategoryList from "../pages/Category/List";
+import CategoryCreate from "../pages/Category/Create";
+import CategoryEdit from "../pages/Category/Edit";
+
+import UnitsList from "../pages/UnitOfMeasurement/List";
+import UnitsCreate from "../pages/UnitOfMeasurement/Create";
+import UnitsEdit from "../pages/UnitOfMeasurement/Edit";
+
 import UserList from "../pages/User/List";
 import UserCreate from "../pages/User/CreateUser";
 import UserEdit from "../pages/User/EditUser";
@@ -25,12 +33,26 @@ const Router = (props) => {
             {/* Private routes TODO */}
             <Route path={pathRoutes.home} element={<Home />} />
 
+            <Route path={pathRoutes.categoryList} element={<CategoryList />} />
+            <Route
+                path={pathRoutes.categoryCreate}
+                element={<CategoryCreate />}
+            />
+            <Route path={pathRoutes.categoryEdit} element={<CategoryEdit />} />
+
             <Route path={pathRoutes.productList} element={<ProductList />} />
             <Route
                 path={pathRoutes.productCreate}
                 element={<ProductCreate />}
             />
             <Route path={pathRoutes.productEdit} element={<ProductEdit />} />
+
+            <Route path={pathRoutes.unitOfMeasurementList} element={<UnitsList />} />
+            <Route
+                path={pathRoutes.unitOfMeasurementCreate}
+                element={<UnitsCreate />}
+            />
+            <Route path={pathRoutes.unitOfMeasurementEdit} element={<UnitsEdit />} />
 
             <Route path={pathRoutes.userList} element={<UserList />} />
             <Route path={pathRoutes.userCreate} element={<UserCreate />} />

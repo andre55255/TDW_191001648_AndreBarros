@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import "./Edit.css";
-import { getByIdProduct } from "../../services/product/getById";
-import { editProduct } from "../../services/product/edit";
-import { keyMenus, pathRoutes } from "../../helpers/constants";
+import TemplateSave from "../../components/Template/Save";
+import FormSave from "../../components/Form/Category/Category";
+import { yupRuleValidator } from "../../validations/category/categorySaveSchema";
 import { useParams, useNavigate } from "react-router-dom";
 import { Form, message } from "antd";
-import TemplateSave from "../../components/Template/Save";
-import FormSave from "../../components/Form/Product/Product";
-import { yupRuleValidator } from "../../validations/product/productSaveSchema";
+import { getByIdCategory } from "../../services/category/getById";
+import { editCategory } from "../../services/category/edit";
+import { keyMenus, pathRoutes } from "../../helpers/constants";
 
 export default function Edit() {
     const [loading, setLoading] = useState(false);
-    const [product, setProduct] = useState({});
+    const [category, setCategory] = useState({});
 
     const { id } = useParams();
     const navigate = useNavigate();
@@ -20,33 +20,27 @@ export default function Edit() {
     useEffect(() => {
         setLoading(true);
         async function fetchServer() {
-            const prod = await getByIdProduct(id);
-            if (prod == null) {
+            const model = await getByIdCategory(id);
+            if (model == null) {
                 setLoading(false);
-                navigate(pathRoutes.productList);
+                navigate(pathRoutes.categoryList);
                 return;
             }
-            setProduct(prod);
+            setCategory(model);
             setLoading(false);
         }
         fetchServer();
     }, [id, navigate]);
 
     const setValuesFields = () => {
-        form.setFieldValue("description", product.description);
-        form.setFieldValue("barCode", product.barCode);
-        form.setFieldValue("quantity", product.quantity);
-        form.setFieldValue("minQuantity", product.minQuantity);
-        form.setFieldValue("valueUnitary", product.valueUnitary);
-        form.setFieldValue("idUnitOfMeasurement", product.unitOfMeasurementId);
-        form.setFieldValue("idCategory", product.categoryId);
+        form.setFieldValue("description", category.description);
     };
     setValuesFields();
 
     const handleSubmit = async () => {
         try {
             setLoading(true);
-            const result = await editProduct(
+            const result = await editCategory(
                 form.getFieldsError(),
                 form.getFieldsValue(),
                 id
@@ -56,24 +50,24 @@ export default function Edit() {
                 return;
             }
             setLoading(false);
-            message.success("Produto editado com sucesso");
-            navigate(pathRoutes.productList);
+            message.success("Categoria editada com sucesso");
+            navigate(pathRoutes.categoryList);
         } catch (err) {
-            message.error("Falha inesperada ao salvar produto");
+            message.error("Falha inesperada ao salvar categoria");
             setLoading(false);
         }
     };
 
     return (
         <TemplateSave
-            keyActive={keyMenus.product}
+            keyActive={keyMenus.category}
             loading={loading}
-            title="Editar produto"
+            title="Editar categoria de produto"
         >
             <FormSave 
                 form={form}
                 handleSubmit={handleSubmit}
-                nameForm="form_product_edit"
+                nameForm="form_category_edit"
                 setLoading={setLoading}
                 yupRuleValidator={yupRuleValidator}
             />

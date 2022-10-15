@@ -3,9 +3,11 @@ import { Layout, Menu, message, Avatar, Dropdown, Spin } from "antd";
 import "./Home.css";
 import {
     BarcodeOutlined,
+    BranchesOutlined,
     HeartFilled,
     HomeOutlined,
     LogoutOutlined,
+    PieChartOutlined,
     UserOutlined,
 } from "@ant-design/icons";
 import { useNavigate, Link } from "react-router-dom";
@@ -101,8 +103,23 @@ export default function Dashboard(props) {
                         <Menu.Item key={keyMenus.home} icon={<HomeOutlined />}>
                             <Link to={pathRoutes.home}>Home</Link>
                         </Menu.Item>
-                        <Menu.Item key={keyMenus.product} icon={<BarcodeOutlined />}>
+                        <Menu.Item
+                            key={keyMenus.category}
+                            icon={<BranchesOutlined />}
+                        >
+                            <Link to={pathRoutes.categoryList}>Categorias</Link>
+                        </Menu.Item>
+                        <Menu.Item
+                            key={keyMenus.product}
+                            icon={<BarcodeOutlined />}
+                        >
                             <Link to={pathRoutes.productList}>Produtos</Link>
+                        </Menu.Item>
+                        <Menu.Item
+                            key={keyMenus.unitOfMeasurement}
+                            icon={<PieChartOutlined />}
+                        >
+                            <Link to={pathRoutes.unitOfMeasurementList}>Unidades de medida</Link>
                         </Menu.Item>
                         <Menu.Item key={keyMenus.user} icon={<UserOutlined />}>
                             <Link to={pathRoutes.userList}>Usuários</Link>
