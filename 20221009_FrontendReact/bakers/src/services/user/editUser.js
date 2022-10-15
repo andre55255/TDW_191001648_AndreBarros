@@ -1,10 +1,10 @@
 import { hasErrorsValidationYup } from "../../helpers/getErrorValidationYup";
 import { endpoints } from "../../helpers/endPointsName";
-import { postRequest } from "../api/post";
+import { putRequest } from "../api/put";
 import { message } from "antd";
 import { buildAuthorization } from "../../helpers/methods";
 
-export const createUser = async (errors, values) => {
+export const editUser = async (errors, values, idUser) => {
     try {
         const hasErrors = hasErrorsValidationYup(errors);
         if (hasErrors) {
@@ -14,14 +14,14 @@ export const createUser = async (errors, values) => {
             message.error("Senhas não conferem");
             return null;
         }
-        const response = await postRequest(endpoints.user, values, buildAuthorization());
+        const response = await putRequest(endpoints.user + "/" + idUser, values, buildAuthorization());
         if (!response.success) {
             message.error(response.message);
             return null;
         }
         return response.message;
     } catch (err) {
-        message.error("Falha inesperada ao criar usuário");
+        message.error("Falha inesperada ao editar usuário");
         return null;
     }
 };

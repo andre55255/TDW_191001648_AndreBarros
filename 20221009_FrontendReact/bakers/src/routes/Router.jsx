@@ -5,6 +5,7 @@ import Login from "../pages/Login/Login";
 import Home from "../pages/Home/Home";
 import UserList from "../pages/User/User";
 import UserCreate  from "../pages/User/CreateUser";
+import UserEdit  from "../pages/User/EditUser";
 import NotFound from "../pages/NotFound/NotFound";
 
 const Router = (props) => {
@@ -17,6 +18,7 @@ const Router = (props) => {
             <Route path="/home" element={<Home />} />
             <Route path="/user" element={<UserList />} />
             <Route path="/user/create" element={<UserCreate />} />
+            <Route path="/user/:id" element={<UserEdit />} />
 
             {/* Redirect NotFound */}
             <Route path="*" element={<NotFound />} />

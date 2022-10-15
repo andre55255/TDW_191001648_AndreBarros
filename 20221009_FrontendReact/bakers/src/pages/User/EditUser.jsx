@@ -1,46 +1,57 @@
-import React, { useState, useEffect } from "react";
-import "./CreateUser.css";
+import React, { useEffect, useState } from "react";
+import "./EditUser.css";
 import Template from "../../components/Template/Home";
 import {
+    Button,
     Col,
     Divider,
-    Row,
-    Space,
-    Typography,
-    Spin,
     Form,
     Input,
+    message,
+    Row,
     Select,
-    Button,
-    message
+    Space,
+    Spin,
+    Typography,
 } from "antd";
-import { useNavigate } from "react-router-dom";
-import { yupRuleValidator } from "../../validations/user/userSaveSchema";
 import { getAllRoles } from "../../services/role/getAllRoles";
-import { createUser } from "../../services/user/createUser";
+import { getByIdUser } from "../../services/user/getByIdUser";
+import { useNavigate, useParams } from "react-router-dom";
+import { yupRuleValidator } from "../../validations/user/userSaveSchema";
+import { editUser } from "../../services/user/editUser";
 
-export default function CreateUser() {
+export default function EditUser() {
     const { Title } = Typography;
 
     const [loading, setLoading] = useState(false);
     const [roles, setRoles] = useState([]);
+    const [user, setUser] = useState({});
+
+    const { id } = useParams();
     const navigate = useNavigate();
     const [form] = Form.useForm();
 
     useEffect(() => {
         setLoading(true);
-        async function fetchRoles() {
+        async function fetchServer() {
             const roles = await getAllRoles();
             if (roles == null) {
                 setLoading(false);
-                navigate("/");
+                navigate("/user");
+                return;
+            }
+            const user = await getByIdUser(id);
+            if (user == null) {
+                setLoading(false);
+                navigate("/user");
                 return;
             }
             setRoles(roles);
+            setUser(user);
             setLoading(false);
         }
-        fetchRoles();
-    }, [setRoles, navigate]);
+        fetchServer();
+    }, [id, navigate]);
 
     const getRoles = () => {
         return roles.map((role, ind) => {
@@ -52,25 +63,33 @@ export default function CreateUser() {
         });
     };
 
+    const setValuesFields = () => {
+        form.setFieldValue("name", user.name);
+        form.setFieldValue("login", user.login);
+        form.setFieldValue("roleId", user.roleId);
+    }
+    setValuesFields();
+
     const handleSubmit = async () => {
         try {
             setLoading(true);
-            const result = await createUser(
+            const result = await editUser(
                 form.getFieldsError(),
-                form.getFieldsValue()
+                form.getFieldsValue(),
+                id
             );
             if (!result) {
                 setLoading(false);
                 return;
             }
             setLoading(false);
-            message.success("Usuário inserido com sucesso");
+            message.success("Usuário editado com sucesso");
             navigate("/user");
         } catch (err) {
             message.error("Falha inesperada ao salvar usuário");
             setLoading(false);
         }
-    }
+    };
 
     return (
         <Template keyActive="2">
@@ -78,7 +97,9 @@ export default function CreateUser() {
                 <Row>
                     <Col span={24}>
                         <Space align="center">
-                            <Title level={2}>Criar usuário</Title>
+                            <Title level={2}>
+                                Editar usuário - {user.name}
+                            </Title>
                         </Space>
                     </Col>
                     <Divider />
@@ -134,10 +155,12 @@ export default function CreateUser() {
                                 htmlFor="roleId"
                                 rules={[yupRuleValidator]}
                             >
-                                <Select placeholder="Selecione um perfil">{getRoles()}</Select>
+                                <Select placeholder="Selecione um perfil">
+                                    {getRoles()}
+                                </Select>
                             </Form.Item>
                             <Button type="primary" block htmlType="submit">
-                                Criar usuário
+                                Editar usuário
                             </Button>
                         </Form>
                     </Col>
