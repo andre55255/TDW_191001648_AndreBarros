@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { Layout, Menu, message, Avatar, Dropdown, Spin } from "antd";
 import "./Home.css";
 import {
+    AuditOutlined,
     BarcodeOutlined,
     BranchesOutlined,
     HeartFilled,
@@ -114,6 +115,9 @@ export default function Dashboard(props) {
                             icon={<BarcodeOutlined />}
                         >
                             <Link to={pathRoutes.productList}>Produtos</Link>
+                        </Menu.Item>
+                        <Menu.Item key={keyMenus.role} icon={<AuditOutlined />}>
+                            <Link to={pathRoutes.roleList}>Perfis</Link>
                         </Menu.Item>
                         <Menu.Item
                             key={keyMenus.unitOfMeasurement}

@@ -15,14 +15,18 @@ export const pathRoutes = {
     categoryEdit: "/category/:id",
     unitOfMeasurementList: "/unitOfMeasurment",
     unitOfMeasurementCreate: "/unitOfMeasurement/create",
-    unitOfMeasurementEdit: "/unitOfMeasurement/:id"
+    unitOfMeasurementEdit: "/unitOfMeasurement/:id",
+    roleList: "/role",
+    roleCreate: "/role/create",
+    roleEdit: "/role/:id"
 };
 
 export const keyMenus = {
     home: "1",
     category: "2",
-    product: "3",
-    unitOfMeasurement: "4",
-    user: "5",
-    exit: "6"
+    role: "3",
+    product: "4",
+    unitOfMeasurement: "5",
+    user: "6",
+    exit: "7"
 }

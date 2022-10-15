@@ -14,6 +14,10 @@ import CategoryList from "../pages/Category/List";
 import CategoryCreate from "../pages/Category/Create";
 import CategoryEdit from "../pages/Category/Edit";
 
+import RoleList from "../pages/Role/List";
+import RoleCreate from "../pages/Role/Create";
+import RoleEdit from "../pages/Role/Edit";
+
 import UnitsList from "../pages/UnitOfMeasurement/List";
 import UnitsCreate from "../pages/UnitOfMeasurement/Create";
 import UnitsEdit from "../pages/UnitOfMeasurement/Edit";
@@ -47,12 +51,22 @@ const Router = (props) => {
             />
             <Route path={pathRoutes.productEdit} element={<ProductEdit />} />
 
-            <Route path={pathRoutes.unitOfMeasurementList} element={<UnitsList />} />
+            <Route path={pathRoutes.roleList} element={<RoleList />} />
+            <Route path={pathRoutes.roleCreate} element={<RoleCreate />} />
+            <Route path={pathRoutes.roleEdit} element={<RoleEdit />} />
+
+            <Route
+                path={pathRoutes.unitOfMeasurementList}
+                element={<UnitsList />}
+            />
             <Route
                 path={pathRoutes.unitOfMeasurementCreate}
                 element={<UnitsCreate />}
             />
-            <Route path={pathRoutes.unitOfMeasurementEdit} element={<UnitsEdit />} />
+            <Route
+                path={pathRoutes.unitOfMeasurementEdit}
+                element={<UnitsEdit />}
+            />
 
             <Route path={pathRoutes.userList} element={<UserList />} />
             <Route path={pathRoutes.userCreate} element={<UserCreate />} />
