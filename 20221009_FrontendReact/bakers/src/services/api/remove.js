@@ -1,6 +1,6 @@
 import api from "./configApi";
 
-export const postRequest = async (path, body, authorization = {}) => {
+export const deleteRequest = async (path, authorization = {}) => {
     let response = {
         success: false,
         message: "",
@@ -9,7 +9,7 @@ export const postRequest = async (path, body, authorization = {}) => {
     };
     try {
         await api
-            .post(path, body, authorization)
+            .delete(path, authorization)
             .then((result) => {
                 response.success = result.data.success;
                 response.message = result.data.message;

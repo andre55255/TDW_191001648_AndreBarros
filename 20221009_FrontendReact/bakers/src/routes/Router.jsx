@@ -3,7 +3,8 @@ import { Routes, Route } from "react-router-dom";
 
 import Login from "../pages/Login/Login";
 import Home from "../pages/Home/Home";
-import User from "../pages/User/User";
+import UserList from "../pages/User/User";
+import UserCreate  from "../pages/User/CreateUser";
 import NotFound from "../pages/NotFound/NotFound";
 
 const Router = (props) => {
@@ -14,7 +15,8 @@ const Router = (props) => {
 
             {/* Private routes TODO */}
             <Route path="/home" element={<Home />} />
-            <Route path="/user" element={<User />} />
+            <Route path="/user" element={<UserList />} />
+            <Route path="/user/create" element={<UserCreate />} />
 
             {/* Redirect NotFound */}
             <Route path="*" element={<NotFound />} />

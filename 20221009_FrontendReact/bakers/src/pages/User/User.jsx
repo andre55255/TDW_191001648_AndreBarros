@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./User.css";
 import Template from "../../components/Template/Home";
-import { Button, Col, Divider, Row, Space, Typography, Spin } from "antd";
+import { Button, Col, Divider, Row, Space, Typography, Spin, message } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { getAllUsers } from "../../services/user/getAllUsers";
+import { removeUser } from "../../services/user/removeUser";
 import { useNavigate } from "react-router-dom";
 import TableCustom from "../../components/Table/Table";
 
@@ -29,7 +30,7 @@ export default function User() {
         fetchUsers();
     }, [setUsers, navigate]);
 
-    const columns = ["Id", "Login", "Nome", "Perfil"];
+    const columns = ["Id", "Login", "Nome", "Perfil", "Acoes"];
 
     const data = users.map((item, ind) => {
         return {
@@ -38,8 +39,29 @@ export default function User() {
             Login: item.login,
             Nome: item.name,
             Perfil: item.roleName,
+            Acoes: item.id
         };
     });
+
+    const handleDelete = async (id) => {
+        try {
+            setLoading(true);
+            const result = await removeUser(id);
+            if (!result) {
+                setLoading(false);
+                return;
+            }
+            message.success("Usuário deletado com sucesso");
+            
+            const users = await getAllUsers();
+            setUsers(users);
+            setLoading(false);
+        } catch (err) {
+            console.log(err);
+            message.error("Falha ao requisitar a deleção de usuário");
+            setLoading(false);
+        }
+    }
 
     return (
         <Template keyActive="2">
@@ -56,6 +78,7 @@ export default function User() {
                             type="primary"
                             size="middle"
                             icon={<PlusOutlined />}
+                            onClick={() =>  navigate("/user/create")}
                         >
                             Adicionar
                         </Button>
@@ -69,7 +92,7 @@ export default function User() {
             >
                 <Col span={24}>
                     <Spin spinning={loading}>
-                        <TableCustom columns={columns} data={data} />
+                        <TableCustom columns={columns} data={data} handleDelete={handleDelete}/>
                     </Spin>
                 </Col>
             </Row>

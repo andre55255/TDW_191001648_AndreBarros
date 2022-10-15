@@ -44,6 +44,7 @@ export default function Login() {
             navigate("/Home");
         } catch (err) {
             message.error("Falha inesperada ao salvar token de acesso");
+            setLoading(false);
         }
     };
 
