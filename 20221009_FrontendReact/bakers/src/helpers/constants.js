@@ -16,6 +16,9 @@ export const pathRoutes = {
     unitOfMeasurementList: "/unitOfMeasurment",
     unitOfMeasurementCreate: "/unitOfMeasurement/create",
     unitOfMeasurementEdit: "/unitOfMeasurement/:id",
+    movementList: "/movement",
+    movementCreate: "/movement/create",
+    movementEdit: "/movement/:id",
     roleList: "/role",
     roleCreate: "/role/create",
     roleEdit: "/role/:id"
@@ -28,5 +31,6 @@ export const keyMenus = {
     product: "4",
     unitOfMeasurement: "5",
     user: "6",
+    movement: "8",
     exit: "7"
 }

@@ -6,3 +6,4 @@
 <b>- 20221001_BackendAPIKnexJS (Projeto de backend final usando javascript com knex e utilizando padrões de arquitetura limpa para divisão das camadas.)</b><br/>
 
 <b>- 20221009_FrontEndReact (Projeto de frontend final usando React com framework Antd para UI Design)</b><br/>
+

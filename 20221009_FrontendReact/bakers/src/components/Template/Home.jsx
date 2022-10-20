@@ -8,6 +8,7 @@ import {
     HeartFilled,
     HomeOutlined,
     LogoutOutlined,
+    PercentageOutlined,
     PieChartOutlined,
     UserOutlined,
 } from "@ant-design/icons";
@@ -115,6 +116,12 @@ export default function Dashboard(props) {
                             icon={<BarcodeOutlined />}
                         >
                             <Link to={pathRoutes.productList}>Produtos</Link>
+                        </Menu.Item>
+                        <Menu.Item
+                            key={keyMenus.movement}
+                            icon={<PercentageOutlined />}
+                        >
+                            <Link to={pathRoutes.movementList}>Movimentos</Link>
                         </Menu.Item>
                         <Menu.Item key={keyMenus.role} icon={<AuditOutlined />}>
                             <Link to={pathRoutes.roleList}>Perfis</Link>

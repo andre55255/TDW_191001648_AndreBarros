@@ -5,5 +5,6 @@ export const endpoints = {
     role: "/role",
     product: "/product",
     category: "/category",
-    unitOfMeasurement: "/unitOfMeasurement"
+    unitOfMeasurement: "/unitOfMeasurement",
+    movement: "/movement"
 }

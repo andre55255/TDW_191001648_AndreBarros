@@ -14,6 +14,10 @@ import CategoryList from "../pages/Category/List";
 import CategoryCreate from "../pages/Category/Create";
 import CategoryEdit from "../pages/Category/Edit";
 
+import MovementList from "../pages/Movement/List";
+import MovementCreate from "../pages/Movement/Create";
+import MovementEdit from "../pages/Movement/Edit";
+
 import RoleList from "../pages/Role/List";
 import RoleCreate from "../pages/Role/Create";
 import RoleEdit from "../pages/Role/Edit";
@@ -43,6 +47,13 @@ const Router = (props) => {
                 element={<CategoryCreate />}
             />
             <Route path={pathRoutes.categoryEdit} element={<CategoryEdit />} />
+
+            <Route path={pathRoutes.movementList} element={<MovementList />} />
+            <Route
+                path={pathRoutes.movementCreate}
+                element={<MovementCreate />}
+            />
+            <Route path={pathRoutes.movementEdit} element={<MovementEdit />} />
 
             <Route path={pathRoutes.productList} element={<ProductList />} />
             <Route

@@ -7,8 +7,18 @@ export const buildAuthorization = () => {
     return {
         headers: {
             Authorization: "Bearer " + token,
-        }
+        },
     };
+};
+
+export const formatDate = (date) => {
+    const dateObj = new Date(date),
+        day = dateObj.getDate().toString(),
+        dayF = day.length === 1 ? "0" + day : day,
+        month = (dateObj.getMonth() + 1).toString(),
+        monthF = month.length === 1 ? "0" + month : month,
+        yearF = dateObj.getFullYear();
+    return dayF + "/" + monthF + "/" + yearF;
 };
 
 export const setLocalStorage = (key, value) => {
@@ -19,7 +29,7 @@ export const setLocalStorage = (key, value) => {
         console.log(err);
         return false;
     }
-}
+};
 
 export const getLocalStorage = (key) => {
     try {
@@ -29,7 +39,7 @@ export const getLocalStorage = (key) => {
         console.log(err);
         return null;
     }
-}
+};
 
 export const removeLocalStorage = (key) => {
     try {
@@ -39,7 +49,7 @@ export const removeLocalStorage = (key) => {
         console.log(err);
         return false;
     }
-}
+};
 
 export const setCookie = (key, value, expires) => {
     try {
@@ -49,8 +59,7 @@ export const setCookie = (key, value, expires) => {
             expires: expiresDate || undefined,
         });
         return true;
-    }
-    catch (err) {
+    } catch (err) {
         console.log(err);
         return false;
     }
@@ -61,8 +70,7 @@ export const getCookie = (key) => {
         const cookies = new Cookies();
         const val = cookies.get(key);
         return val;
-    }
-    catch (err) {
+    } catch (err) {
         console.log(err);
         return null;
     }

@@ -12,15 +12,18 @@ const validationMovement = [
     check("date")
         .notEmpty()
         .withMessage("Data de movimento não informada")
-        .isDate()
-        .withMessage("Data de movimento inválido")
+        .custom((val) => {
+            const date = moment(val);
+            return date.isValid();
+        })
+        .withMessage("Data inválida")
         .custom((val) => {
             if (moment(val).toDate() > new Date()) {
                 return false;
             }
             return true;
         })
-        .withMessage("Data de movimento não pode ser maior que a atual"),
+        .withMessage("Data de movimento inválida ou não pode ser maior que a atual"),
     check("value")
         .notEmpty()
         .withMessage("Valor de movimento não informado")
