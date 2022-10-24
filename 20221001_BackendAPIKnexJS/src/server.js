@@ -13,6 +13,11 @@ app.use(express.urlencoded({ extended: true }));
 const cors = require("cors");
 app.use(cors());
 
+// Config swagger
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require("./swagger.json");
+app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 // Routes
 const accRouter = require("./routes/accountRouter");
 const catRouter = require("./routes/categoryRouter");

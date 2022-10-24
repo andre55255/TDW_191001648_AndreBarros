@@ -6,5 +6,7 @@ export const endpoints = {
     product: "/product",
     category: "/category",
     unitOfMeasurement: "/unitOfMeasurement",
-    movement: "/movement"
+    movement: "/movement",
+    orderPad: "/orderPad",
+    orderPadItems: "/orderPadItem"
 }
