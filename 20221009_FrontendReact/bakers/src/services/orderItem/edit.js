@@ -4,13 +4,14 @@ import { putRequest } from "../api/put";
 import { message } from "antd";
 import { buildAuthorization } from "../../helpers/methods";
 
-export const editOrderPadItem = async (errors, values, id) => {
+export const editOrderPadItem = async (errors, values, idItem, idOrderPad) => {
     try {
         const hasErrors = hasErrorsValidationYup(errors);
         if (hasErrors) {
             return null;
         }
-        const response = await putRequest(endpoints.orderPadItems + "/" + id, values, buildAuthorization());
+        values.orderPadId = idOrderPad;
+        const response = await putRequest(endpoints.orderPadItems + "/" + idItem, values, buildAuthorization());
         if (!response.success) {
             message.error(response.message);
             return null;

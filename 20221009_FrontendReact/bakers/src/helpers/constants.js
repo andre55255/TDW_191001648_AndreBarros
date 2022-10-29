@@ -25,8 +25,8 @@ export const pathRoutes = {
     orderPadList: "/orderPad",
     orderPadCreate: "/orderPad/create",
     orderPadEdit: "/orderPad/:id",
-    orderPadItemEdit: "/orderPadItem/:id",
-    orderPadItemCreate: "/orderPadItem/:idOrderPad"
+    orderPadItemEdit: "/orderPadItem/edit/:idOrderPad/:idItem",
+    orderPadItemCreate: "/orderPadItem/create/:idOrderPad"
 };
 
 export const keyMenus = {

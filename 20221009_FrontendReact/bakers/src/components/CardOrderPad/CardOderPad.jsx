@@ -30,7 +30,7 @@ export default function CardOderPad({
                         type="primary"
                         size="middle"
                         icon={<PlusOutlined />}
-                        onClick={() => navigate(pathRoutes.orderPadItemCreate)}
+                        onClick={() => navigate(pathRoutes.orderPadItemCreate.replace(":idOrderPad", orderPad.id))}
                     >
                         Criar item para esta comanda
                     </Button>
@@ -38,7 +38,7 @@ export default function CardOderPad({
                         type="default"
                         size="middle"
                         icon={<EditOutlined />}
-                        onClick={() => navigate(pathRoutes.orderPadEdit)}
+                        onClick={() => navigate(pathRoutes.orderPadItemEdit)}
                     >
                         Editar data de comanda
                     </Button>
@@ -48,6 +48,7 @@ export default function CardOderPad({
                     data={rows}
                     pathBaseEdit={pathRoutes.orderPadItemEdit}
                     handleDelete={handleDeleteItem}
+                    pathEditOrderPad={pathRoutes.orderPadItemEdit.replace(":idOrderPad", orderPad.id)}
                 />
             </Card>
             <Divider />

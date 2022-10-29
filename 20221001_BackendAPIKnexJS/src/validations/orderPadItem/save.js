@@ -4,7 +4,7 @@ const validationOrderPadItem = [
     check("quantity")
         .notEmpty()
         .withMessage("Quantidade não informada")
-        .isInt({ min: 1 })
+        .isFloat({ min: 1 })
         .withMessage("Quantidade deve ser maior que zero"),
     check("orderPadId")
         .notEmpty()

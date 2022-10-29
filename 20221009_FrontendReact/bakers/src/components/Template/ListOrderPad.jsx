@@ -35,6 +35,7 @@ export default function ListOrderPad({ loading, orderPads, handleDeleteItem }) {
                     orderPad={orderPad}
                     handleDeleteItem={handleDeleteItem}
                     key={orderPad.id}
+                    isPathCompleted={true}
                 />
             );
         });

@@ -1,9 +1,19 @@
-import { DeleteOutlined, EditOutlined, InfoCircleOutlined } from "@ant-design/icons";
+import {
+    DeleteOutlined,
+    EditOutlined,
+    InfoCircleOutlined,
+} from "@ant-design/icons";
 import { Popconfirm, Space, Table } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function TableCustom({ columns, data, pathBaseEdit, handleDelete }) {
+export default function TableCustom({
+    columns,
+    data,
+    pathBaseEdit,
+    handleDelete,
+    pathEditOrderPad
+}) {
     const columnsTable = columns.map((item) => {
         return {
             title: item,
@@ -15,7 +25,13 @@ export default function TableCustom({ columns, data, pathBaseEdit, handleDelete 
                 ) : (
                     <>
                         <Space>
-                            <Link to={pathBaseEdit.replace(":id", text)}>
+                            <Link
+                                to={
+                                    pathEditOrderPad
+                                        ? pathEditOrderPad.replace(":idItem", text)
+                                        : pathBaseEdit.replace(":id", text)
+                                }
+                            >
                                 <EditOutlined
                                     color="#dbd800"
                                     style={{
@@ -29,7 +45,11 @@ export default function TableCustom({ columns, data, pathBaseEdit, handleDelete 
                                 onCancel={() => console.log("Não")}
                                 okText="Sim"
                                 cancelText="Não"
-                                icon={<InfoCircleOutlined style={{color: "#dc143c"}} />}
+                                icon={
+                                    <InfoCircleOutlined
+                                        style={{ color: "#dc143c" }}
+                                    />
+                                }
                             >
                                 <DeleteOutlined
                                     style={{
