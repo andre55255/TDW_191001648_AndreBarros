@@ -276,6 +276,9 @@ const getAll = async () => {
                 const items = array
                     .filter((i) => i.idComanda == item.idComanda)
                     .map((el) => {
+                        if (!el.idItem) {
+                            return null;
+                        }
                         return {
                             id: el.idItem,
                             quantity: el.quantitadeItem,
@@ -298,7 +301,11 @@ const getAll = async () => {
                             },
                         };
                     });
-                aux.items = items;
+                if (items && items[0]) {
+                    aux.items = items;
+                } else {
+                    aux.items = [];
+                }
                 orderPads.push(aux);
             }
         });
