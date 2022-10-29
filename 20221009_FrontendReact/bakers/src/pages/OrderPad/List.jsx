@@ -6,6 +6,7 @@ import { pathRoutes } from "../../helpers/constants";
 import { useNavigate } from "react-router-dom";
 import { getAllOrderPads } from "../../services/orderPad/getAll";
 import { removeOrderPadItem } from "../../services/orderItem/remove";
+import { removeOrderPad } from "../../services/orderPad/remove";
 
 export default function List() {
     const navigate = useNavigate();
@@ -49,9 +50,30 @@ export default function List() {
         }
     };
 
+    const handleDeleteOrder = async (id) => {
+        try {
+            setLoading(true);
+            const result = await removeOrderPad(id);
+            if (!result) {
+                setLoading(false);
+                return;
+            }
+            message.success("Comanda deletada com sucesso");
+
+            const saves = await getAllOrderPads();
+            setOrderPads(saves);
+            setLoading(false);
+        } catch (err) {
+            console.log(err);
+            message.error("Falha ao requisitar a deleção de comanda");
+            setLoading(false);
+        }
+    };
+
     return (
         <ListOrderPads
             handleDeleteItem={handleDeleteItem}
+            handleDeleteOrder={handleDeleteOrder}
             loading={loading}
             orderPads={orderPads}
         />

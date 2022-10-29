@@ -7,8 +7,12 @@ import { PlusOutlined } from "@ant-design/icons";
 import CardOrderPad from "../CardOrderPad/CardOderPad";
 import { useNavigate } from "react-router-dom";
 
-export default function ListOrderPad({ loading, orderPads, handleDeleteItem }) {
-
+export default function ListOrderPad({
+    loading,
+    orderPads,
+    handleDeleteItem,
+    handleDeleteOrder,
+}) {
     const navigate = useNavigate();
     const { Title } = Typography;
 
@@ -34,6 +38,7 @@ export default function ListOrderPad({ loading, orderPads, handleDeleteItem }) {
                     rows={data}
                     orderPad={orderPad}
                     handleDeleteItem={handleDeleteItem}
+                    handleDeleteOrder={handleDeleteOrder}
                     key={orderPad.id}
                     isPathCompleted={true}
                 />

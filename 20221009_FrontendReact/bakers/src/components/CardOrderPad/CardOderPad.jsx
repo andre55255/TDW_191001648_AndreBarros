@@ -1,5 +1,10 @@
-import { EditOutlined, PlusOutlined } from "@ant-design/icons";
-import { Button, Card, Divider, Space } from "antd";
+import {
+    DeleteOutlined,
+    EditOutlined,
+    InfoCircleOutlined,
+    PlusOutlined,
+} from "@ant-design/icons";
+import { Button, Card, Divider, Popconfirm, Space } from "antd";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { pathRoutes } from "../../helpers/constants";
@@ -11,6 +16,7 @@ export default function CardOderPad({
     columns,
     rows,
     handleDeleteItem,
+    handleDeleteOrder,
 }) {
     const navigate = useNavigate();
 
@@ -30,7 +36,14 @@ export default function CardOderPad({
                         type="primary"
                         size="middle"
                         icon={<PlusOutlined />}
-                        onClick={() => navigate(pathRoutes.orderPadItemCreate.replace(":idOrderPad", orderPad.id))}
+                        onClick={() =>
+                            navigate(
+                                pathRoutes.orderPadItemCreate.replace(
+                                    ":idOrderPad",
+                                    orderPad.id
+                                )
+                            )
+                        }
                     >
                         Criar item para esta comanda
                     </Button>
@@ -42,13 +55,35 @@ export default function CardOderPad({
                     >
                         Editar data de comanda
                     </Button>
+                    <Popconfirm
+                        title="Deseja realmente excluir esta comanda permanentemente?"
+                        onConfirm={() => handleDeleteOrder(orderPad.id)}
+                        onCancel={() => console.log("Não")}
+                        okText="Sim"
+                        cancelText="Não"
+                        icon={
+                            <InfoCircleOutlined style={{ color: "#dc143c" }} />
+                        }
+                    >
+                        <Button
+                            type="default"
+                            size="middle"
+                            icon={<DeleteOutlined />}
+                            danger
+                        >
+                            Deletar comanda
+                        </Button>
+                    </Popconfirm>
                 </Space>
                 <TableCustom
                     columns={columns}
                     data={rows}
                     pathBaseEdit={pathRoutes.orderPadItemEdit}
                     handleDelete={handleDeleteItem}
-                    pathEditOrderPad={pathRoutes.orderPadItemEdit.replace(":idOrderPad", orderPad.id)}
+                    pathEditOrderPad={pathRoutes.orderPadItemEdit.replace(
+                        ":idOrderPad",
+                        orderPad.id
+                    )}
                 />
             </Card>
             <Divider />
