@@ -278,7 +278,7 @@ const getAll = async () => {
                     .map((el) => {
                         return {
                             id: el.idItem,
-                            quantity: el.quantidadeItem,
+                            quantity: el.quantitadeItem,
                             valueUnitary: el.valorUnitarioItem,
                             product: {
                                 id: el.idProduto,

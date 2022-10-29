@@ -37,26 +37,25 @@ export const getAllOrderPads = async () => {
                     return {
                         id: item.id,
                         valueUnitary: item.valueUnitary,
+                        quantity: item.quantity,
                         product: {
-                            id: item.id,
-                            description: item.description,
-                            barCode: item.barCode,
-                            quantity: item.quantity,
-                            minQuantity: item.minQuantity,
-                            valueUnitary: item.valueUnitary,
-                            categoryId: item.category.id,
+                            id: item.product.id,
+                            description: item.product.description,
+                            barCode: item.product.barCode,
+                            quantity: item.product.quantity,
+                            minQuantity: item.product.minQuantity,
+                            valueUnitary: item.product.valueUnitary,
+                            categoryId: item.product.category.id,
                             category: {
-                                id: item.category.id,
-                                description:
-                                    item.category.description,
+                                id: item.product.category.id,
+                                description: item.product.category.description,
                             },
                             unitOfMeasurementId:
-                                item.unitOfMeasurement.id,
+                                item.product.unitOfMeasurement.id,
                             unitOfMeasurement: {
-                                id: item.unitOfMeasurement.id,
+                                id: item.product.unitOfMeasurement.id,
                                 description:
-                                    item.unitOfMeasurement
-                                        .description,
+                                    item.product.unitOfMeasurement.description,
                             },
                         },
                     };

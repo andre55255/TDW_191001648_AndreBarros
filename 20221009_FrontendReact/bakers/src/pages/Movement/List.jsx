@@ -40,7 +40,7 @@ export default function List() {
 
     const data = movements.map((item, ind) => {
         return {
-            key: ind,
+            key: item.id,
             Id: item.id,
             Descrição: item.description,
             Data: formatDate(item.date),

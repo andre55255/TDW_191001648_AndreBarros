@@ -21,7 +21,12 @@ export const pathRoutes = {
     movementEdit: "/movement/:id",
     roleList: "/role",
     roleCreate: "/role/create",
-    roleEdit: "/role/:id"
+    roleEdit: "/role/:id",
+    orderPadList: "/orderPad",
+    orderPadCreate: "/orderPad/create",
+    orderPadEdit: "/orderPad/:id",
+    orderPadItemEdit: "/orderPadItem/:id",
+    orderPadItemCreate: "/orderPadItem/:idOrderPad"
 };
 
 export const keyMenus = {
@@ -32,5 +37,6 @@ export const keyMenus = {
     unitOfMeasurement: "5",
     user: "6",
     movement: "8",
-    exit: "7"
+    exit: "7",
+    orderPads: "9"
 }

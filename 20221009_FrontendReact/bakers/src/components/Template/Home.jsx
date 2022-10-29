@@ -5,6 +5,7 @@ import {
     AuditOutlined,
     BarcodeOutlined,
     BranchesOutlined,
+    CalculatorOutlined,
     HeartFilled,
     HomeOutlined,
     LogoutOutlined,
@@ -112,6 +113,12 @@ export default function Dashboard(props) {
                             <Link to={pathRoutes.categoryList}>Categorias</Link>
                         </Menu.Item>
                         <Menu.Item
+                            key={keyMenus.orderPads}
+                            icon={<CalculatorOutlined /> }
+                        >
+                            <Link to={pathRoutes.orderPadList}>Comandas</Link>
+                        </Menu.Item>
+                        <Menu.Item
                             key={keyMenus.product}
                             icon={<BarcodeOutlined />}
                         >
@@ -168,7 +175,7 @@ export default function Dashboard(props) {
                         <HeartFilled
                             style={{ color: "#ff0030", fontSize: "1.1rem" }}
                         />{" "}
-                        por André Luiz Barros
+                        por Dedé
                     </Footer>
                 </Layout>
             </Layout>

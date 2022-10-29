@@ -18,6 +18,8 @@ import MovementList from "../pages/Movement/List";
 import MovementCreate from "../pages/Movement/Create";
 import MovementEdit from "../pages/Movement/Edit";
 
+import OrderPadList from "../pages/OrderPad/List";
+
 import RoleList from "../pages/Role/List";
 import RoleCreate from "../pages/Role/Create";
 import RoleEdit from "../pages/Role/Edit";
@@ -54,6 +56,8 @@ const Router = (props) => {
                 element={<MovementCreate />}
             />
             <Route path={pathRoutes.movementEdit} element={<MovementEdit />} />
+
+            <Route path={pathRoutes.orderPadList} element={<OrderPadList />}/>
 
             <Route path={pathRoutes.productList} element={<ProductList />} />
             <Route
