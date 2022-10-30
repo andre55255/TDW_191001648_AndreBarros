@@ -17,6 +17,8 @@ export default function CardOderPad({
     rows,
     handleDeleteItem,
     handleDeleteOrder,
+    showModalEdit,
+    setIdOrderPadEdit
 }) {
     const navigate = useNavigate();
 
@@ -51,7 +53,10 @@ export default function CardOderPad({
                         type="default"
                         size="middle"
                         icon={<EditOutlined />}
-                        onClick={() => navigate(pathRoutes.orderPadItemEdit)}
+                        onClick={() => {
+                            setIdOrderPadEdit(orderPad.id);
+                            showModalEdit();
+                        }}
                     >
                         Editar data de comanda
                     </Button>

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./List.css";
 import ListOrderPads from "../../components/Template/ListOrderPad";
+import ModalCreate from "../OrderPad/Create";
+import ModalEdit from "../OrderPad/Edit";
 import { message } from "antd";
 import { pathRoutes } from "../../helpers/constants";
 import { useNavigate } from "react-router-dom";
@@ -13,6 +15,17 @@ export default function List() {
 
     const [loading, setLoading] = useState(false);
     const [orderPads, setOrderPads] = useState([]);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModalOpenEdit, setIsModalOpenEdit] = useState(false);
+    const [idOrderPadEdit, setIdOrderPadEdit] = useState(0);
+
+    const showModalCreate = () => {
+        setIsModalOpen(true);
+    };
+
+    const showModalEdit = () => {
+        setIsModalOpenEdit(true);
+    }
 
     useEffect(() => {
         setLoading(true);
@@ -71,11 +84,27 @@ export default function List() {
     };
 
     return (
-        <ListOrderPads
-            handleDeleteItem={handleDeleteItem}
-            handleDeleteOrder={handleDeleteOrder}
-            loading={loading}
-            orderPads={orderPads}
-        />
+        <>
+            <ListOrderPads
+                handleDeleteItem={handleDeleteItem}
+                handleDeleteOrder={handleDeleteOrder}
+                loading={loading}
+                orderPads={orderPads}
+                showModalCreate={showModalCreate}
+                showModalEdit={showModalEdit}
+                setIdOrderPadEdit={setIdOrderPadEdit}
+            />
+            <ModalCreate 
+                isModalOpen={isModalOpen}
+                setIsModalOpen={setIsModalOpen}
+                setOrderPads={setOrderPads}
+            />
+            <ModalEdit 
+                isModalOpen={isModalOpenEdit}
+                setIsModalOpen={setIsModalOpenEdit}
+                setOrderPads={setOrderPads}
+                idOrderPad={idOrderPadEdit}
+            />
+        </>
     );
 }

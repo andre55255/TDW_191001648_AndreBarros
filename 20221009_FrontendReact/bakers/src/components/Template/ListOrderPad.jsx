@@ -1,19 +1,20 @@
 import React from "react";
 import "./ListOrderPad.css";
 import Template from "../../components/Template/Home";
-import { keyMenus, pathRoutes } from "../../helpers/constants";
+import { keyMenus } from "../../helpers/constants";
 import { Button, Col, Divider, Row, Space, Spin, Typography } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import CardOrderPad from "../CardOrderPad/CardOderPad";
-import { useNavigate } from "react-router-dom";
 
 export default function ListOrderPad({
     loading,
     orderPads,
     handleDeleteItem,
     handleDeleteOrder,
+    showModalCreate,
+    showModalEdit,
+    setIdOrderPadEdit
 }) {
-    const navigate = useNavigate();
     const { Title } = Typography;
 
     const columnsTableItems = ["Id", "Valor", "Quantidade", "Produto", "Acoes"];
@@ -41,6 +42,8 @@ export default function ListOrderPad({
                     handleDeleteOrder={handleDeleteOrder}
                     key={orderPad.id}
                     isPathCompleted={true}
+                    showModalEdit={showModalEdit}
+                    setIdOrderPadEdit={setIdOrderPadEdit}
                 />
             );
         });
@@ -61,7 +64,7 @@ export default function ListOrderPad({
                             type="primary"
                             size="middle"
                             icon={<PlusOutlined />}
-                            onClick={() => navigate(pathRoutes.orderPadCreate)}
+                            onClick={showModalCreate}
                         >
                             Criar comanda
                         </Button>
