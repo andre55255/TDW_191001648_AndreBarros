@@ -1,26 +1,51 @@
-export default function Index() {
+import React, { useState, useEffect } from "react";
+import TemplateLista from "../components/TemplateLista/TemplateLista";
+import { getAllUsers } from "../services/user/getAllUsers";
+
+export default function Home() {
+    const [users, setUsers] = useState([]);
+
+    useEffect(() => {
+        async function fetchUsers() {
+            const users = await getAllUsers();
+            if (users == null) {
+                return;
+            }
+            setUsers(users);
+        }
+        fetchUsers();
+    }, [setUsers]);
+
+    const colunas = {
+        id: "Id",
+        name: "Nome",
+        login: "Login",
+        password: "Senha",
+        status: "Status",
+        roleId: "Perfil ID",
+        acoes: "Ações",
+    };
+
+    const linhas = users.map((el) => {
+        return {
+            id: el.id,
+            name: el.name,
+            login: el.login,
+            password: el.password,
+            status: el.status,
+            roleId: el.roleId
+        }
+    });
+
+    console.log(linhas);
+
     return (
-        <div className="row gx-5 align-items-center justify-content-center">
-            <div className="col-lg-8 col-xl-7 col-xxl-6">
-                <div className="my-5 text-center text-xl-start">
-                    <h1 className="display-5 fw-bolder mb-2">
-                        Bem vindo,
-                    </h1>
-                    <p className="lead fw-normal mb-4">
-                        Sistema de gestão para padaria, baseado em NodeJS e Next para controle de estoque,
-                        pedidos, etc.
-                    </p>
-                    <div className="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
-                        <button
-                            className="btn btn-primary btn-lg px-4 me-sm-3"
-                        >
-                            Login
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div className="col-xl-5 col-xxl-6 d-none d-xl-block text-center">
-            </div>
-        </div>
+        <TemplateLista
+            colunas={colunas}
+            linhas={linhas}
+            caminhoCriar="/usuarios/criar"
+            caminhoEditar="/usuarios/editar/:id"
+            handleDelete={(id) => console.log("Deletando usuário, id: " + id)}
+        />
     );
 }

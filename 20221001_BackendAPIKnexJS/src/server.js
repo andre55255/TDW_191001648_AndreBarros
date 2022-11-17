@@ -3,7 +3,7 @@ const app = express();
 require("dotenv").config();
 const { logger } = require("./middlewares/logger");
 
-const PORT_SERVER = process.env.PORT_SERVER || 8081;
+const PORT = process.env.PORT || 8081;
 
 // Middlewares Request
 app.use(express.json());
@@ -39,4 +39,4 @@ app.use("/role", roleRouter);
 app.use("/unitOfMeasurement", unitOfMeasRouter);
 app.use("/user", userRouter);
 
-app.listen(PORT_SERVER, () => logger.info(`Listening in port ${PORT_SERVER}`));
+app.listen(PORT, () => logger.info(`Listening in port ${PORT}`));

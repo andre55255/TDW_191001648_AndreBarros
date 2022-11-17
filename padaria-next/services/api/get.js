@@ -11,9 +11,9 @@ export const getRequest = async (path, authorization = {}) => {
         await api
             .get(path, authorization)
             .then((result) => {
-                response.success = result.data.success;
+                response.success = result.data.sucesso;
                 response.message = result.data.message;
-                response.object = result.data.object;
+                response.object = result.data.objeto;
                 response.status = result.status;
             })
             .catch(async (err) => {

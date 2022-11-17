@@ -10,8 +10,12 @@
     },
     "servers": [
         {
+            "url": "https://api-naquele-naipao.herokuapp.com",
+            "description": "API Produção"
+        },
+        {
             "url": "http://localhost:8080",
-            "description": "API localhost"
+            "description": "API LocalHost desenvolvimento"
         }
     ],
     "components": {

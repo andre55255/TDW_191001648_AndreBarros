@@ -19,7 +19,7 @@ const create = async (req, res) => {
             .status(200)
             .json(buildApiResponse(true, 200, result.message, result.object));
     } catch (err) {
-        logger.error("userController login - Exceção: " + err);
+        logger.error("userController create - Exceção: " + err);
         return res
             .status(500)
             .json(buildApiResponse(false, 500, "Falha ao criar usuário"));
